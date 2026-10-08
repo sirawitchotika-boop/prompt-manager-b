@@ -1,0 +1,1273 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#10121b">
+  <title>Prompt Manager — Gate C</title>
+  <style>
+:root{color-scheme:dark;--bg:#0c0e15;--surface:#141924;--surface2:#1d2330;--line:#303744;--txt:#edf0f8;--muted:#9ea9bf;--aqua:#91ddca;--aquaDark:#183f3a;--danger:#ffa5ac;--radius:17px;font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif}*{box-sizing:border-box}html{background:var(--bg);scroll-behavior:auto}body{margin:0;color:var(--txt);background:radial-gradient(ellipse 100% 420px at 50% -110px,#23313a 0%,#0c0e15 90%) fixed;min-height:100dvh}button,input,textarea{font:inherit}button{cursor:pointer;touch-action:manipulation}button:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid var(--aqua);outline-offset:2px}button{border-radius:11px;border:1px solid var(--line);background:#222a38;color:var(--txt);min-height:44px;padding:10px 13px;font-weight:600}button:hover{border-color:#6f8595}button:disabled{opacity:.5;cursor:not-allowed}.primary{background:var(--aqua);border-color:var(--aqua);color:#10201c}.danger{color:var(--danger);border-color:#70424e;background:#30212a}.ghost{background:transparent;border-color:transparent;color:var(--muted)}.chip{min-height:32px;font-size:12px;padding:6px 10px;border-radius:20px}.iconbtn{width:44px;min-width:44px;padding:0}.wrap{max-width:840px;margin:auto;padding:0 16px 100px}.header{position:sticky;top:0;z-index:8;background:#10141df2;backdrop-filter:blur(12px);border-bottom:1px solid #2b3441;padding-top:env(safe-area-inset-top)}.header-in{max-width:840px;margin:auto;padding:11px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px}.wordmark{font-weight:800;letter-spacing:-.025em;font-size:17px}.subline{display:flex;gap:7px;align-items:center;flex-wrap:wrap;color:var(--muted);font-size:11px;margin-top:4px}.env{color:var(--aqua);border:1px solid #38635c;border-radius:6px;padding:2px 6px;font-weight:800}.env.prod{color:#ffd1a7;border-color:#805639}.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:17px}.hero{padding:24px 0 14px}h1{font-size:24px;line-height:1.2;letter-spacing:-.04em;margin:0}h2{font-size:18px;line-height:1.3;letter-spacing:-.02em;margin:0}h3{font-size:14px;margin:0 0 10px}p{margin:8px 0;line-height:1.55}.muted,.hint{color:var(--muted)}.hint{font-size:12px}.section-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:22px 0 12px}.btnrow{display:flex;flex-wrap:wrap;gap:8px}.space{display:flex;justify-content:space-between;align-items:center;gap:10px}.stack{display:grid;gap:12px}.record{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:16px;display:grid;gap:12px}.record-title{font-weight:740;font-size:16px;overflow-wrap:anywhere;line-height:1.35}.pill{display:inline-block;padding:3px 9px;border:1px solid var(--line);border-radius:99px;color:var(--muted);font-size:11px}.preview{font-size:13px;color:#c2d0db;white-space:pre-wrap;overflow-wrap:anywhere;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden;line-height:1.55}.mini{font-size:12px;color:var(--muted)}.empty{text-align:center;padding:35px 20px;border:1px dashed var(--line);border-radius:var(--radius);color:var(--muted)}.empty strong{display:block;margin-bottom:6px;color:var(--txt)}.overline{text-transform:uppercase;letter-spacing:.08em;font-size:10px;color:var(--aqua);font-weight:800}.block{background:#101720;border:1px solid #2b3e48;border-radius:14px;padding:15px;margin-top:12px;min-width:0}.block .space{align-items:flex-start}.block-title{font-size:13px;color:var(--aqua);font-weight:700}.fulltext{white-space:pre-wrap;overflow-wrap:anywhere;word-break:normal;line-height:1.65;margin:13px 0 2px;font-size:14px;max-height:none;user-select:text}.blank{color:var(--muted);font-style:italic}.field{display:grid;gap:7px;margin-top:13px}.field label{font-size:13px;font-weight:700}.input,.editorbox{width:100%;background:#0d111a;border:1px solid #3a4553;border-radius:11px;color:var(--txt);padding:13px;min-height:46px}.editorbox{min-height:250px;resize:vertical;line-height:1.55;font-family:inherit;font-size:15px}.input::placeholder,.editorbox::placeholder{color:#73819b}.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:0 12px}.split{display:grid;gap:12px}.editor-actions{position:sticky;bottom:0;z-index:5;background:linear-gradient(#0c0e1500,#0c0e15 18%);padding:24px 0 max(12px,env(safe-area-inset-bottom));display:flex;gap:9px}.editor-actions button{flex:1}.toast{position:fixed;z-index:30;left:50%;bottom:calc(16px + env(safe-area-inset-bottom));transform:translateX(-50%);width:min(94vw,600px);padding:12px 16px;border-radius:12px;background:#273e3b;border:1px solid #5c9386;color:#e8fff7;box-shadow:0 14px 36px #0008;font-size:14px;pointer-events:none}.toast.error{background:#3b2530;color:#ffe6e6;border-color:#b36677}.modal-mask{position:fixed;inset:0;z-index:20;display:flex;align-items:center;justify-content:center;background:#000a;padding:16px}.modal{width:min(100%,490px);max-height:90dvh;overflow:auto;background:#1b2330;border:1px solid #526070;border-radius:17px;padding:20px;box-shadow:0 30px 60px #000a}.modal h2{margin:0 0 10px}.modal p{color:#c3cddd;white-space:pre-wrap}.modal-actions{display:flex;justify-content:flex-end;flex-wrap:wrap;gap:9px;margin-top:20px}.modal .editorbox{min-height:130px}.back{min-width:80px}.divider{height:1px;background:var(--line);margin:17px 0}.headrow{margin:20px 0 8px;display:flex;gap:10px;align-items:center}.headrow h1{font-size:21px}.smallcaps{font-size:12px;color:var(--muted)}.storage-error{border:1px solid #894d5c;background:#2d2027;border-radius:14px;padding:16px;margin:25px auto;max-width:600px}.bottom-tabs{position:fixed;bottom:0;left:0;right:0;z-index:7;padding-bottom:env(safe-area-inset-bottom);background:#10141df2;border-top:1px solid var(--line);display:flex;justify-content:center}.bottom-tabs .tab{flex:1;max-width:250px;border:0;border-radius:0;background:transparent;color:var(--muted);height:55px}.bottom-tabs .tab.active{color:var(--aqua);box-shadow:inset 0 3px 0 var(--aqua)}.boot{padding:40px;text-align:center;color:var(--muted)}@media(min-width:670px){.split{grid-template-columns:1fr 1fr}.block{margin-top:0}.hero{padding-top:33px}.wrap{padding-inline:24px}.header-in{padding-inline:24px}}@media(max-width:380px){.formgrid{grid-template-columns:1fr}.wrap{padding-inline:12px}.header-in{padding-inline:12px}.btnrow button{font-size:12px}}
+/* Gate B mobile spacing / safe-area pass (Gate A visual feedback). */
+:root{--mobile-gap:16px}
+.header-in{padding-block:16px}
+.wrap{padding-inline:20px;padding-bottom:calc(104px + env(safe-area-inset-bottom))}
+.hero{padding:28px 0 22px;display:grid;gap:12px}
+.hero h1{line-height:1.24}
+.hero p{margin:4px 0 2px}
+.library-actions{gap:10px;margin:8px 0 4px}
+.library-actions button{padding-inline:14px}
+.fixture-panel{margin:8px 0 18px;padding:20px}
+.fixture-inner{gap:16px}
+.fixture-inner>div{min-width:0;flex:1}
+.fixture-inner>button{flex:0 0 auto;max-width:48%}
+.section-head{margin:28px 0 16px}
+.search-panel{padding:20px;margin:12px 0 28px;border:1px solid var(--line);border-radius:var(--radius);background:var(--surface);display:grid;gap:12px}
+.search-panel .section-head{margin:0 0 2px}
+.search-panel .field{margin-top:0}
+.search-panel .input{min-width:0}
+.check-row{display:flex;align-items:center;gap:12px;min-height:44px;margin:8px 0;font-size:14px}
+.check-row input{width:20px;height:20px;accent-color:var(--aqua);flex-shrink:0}
+.results .record{margin:0}
+.results .record-subrow{padding:9px 6px 16px;display:flex;gap:9px;flex-wrap:wrap;align-items:center}
+.results .record-subrow .mini{flex:1 0 100%;line-height:1.5}
+.record{gap:16px;padding:18px}
+.record .btnrow{gap:10px}
+.record button{min-height:44px}
+.headrow{margin:24px 0 18px}
+.detail-quick{margin:18px 0 12px}
+.summary{margin:14px 0 18px;display:grid;gap:6px}
+.summary p{margin:0;line-height:1.6}
+.settings-group{border-radius:16px;border:1px solid var(--line);background:var(--surface);margin:16px 0;padding:0 16px}
+.settings-group summary{padding:18px 2px;min-height:52px;font-size:15px;font-weight:700;cursor:pointer}
+.settings-inside{padding:4px 0 19px;display:grid;gap:12px}
+.settings-group.pad{padding:18px}
+.settings-group .field{min-width:0}
+.settings-group .editorbox{min-height:150px}
+.repeat-list{display:grid;gap:12px}
+.repeat-item{border:1px solid var(--line);border-radius:12px;padding:14px;display:grid;gap:10px;background:#101720}
+.repeat-item .space{align-items:flex-start}
+.repeat-item .formgrid{gap:0 12px}
+.queue-card{margin:14px 0}
+.queue-card.selected{border-color:var(--aqua);box-shadow:inset 3px 0 0 var(--aqua)}
+.queue-card .fulltext{max-height:170px;overflow:auto;margin:0}
+.info-line{display:flex;justify-content:space-between;gap:20px;padding:6px 0;border-bottom:1px solid var(--line)}
+.info-line strong{font-size:13px}
+.modal-actions button{min-height:46px}
+.bottom-tabs .tab{max-width:220px;height:60px}
+@media(max-width:540px){
+  .formgrid{grid-template-columns:minmax(0,1fr)}
+  .repeat-item .formgrid{grid-template-columns:minmax(0,1fr)}
+  .wrap{padding-inline:20px}
+  .header-in{padding-inline:20px}
+  .hero{padding-top:26px;gap:13px}
+  .hero p{font-size:14px;line-height:1.6}
+  .fixture-inner{flex-wrap:wrap;align-items:stretch}
+  .fixture-inner>button{max-width:none;flex:1 1 135px}
+  .search-panel{padding:16px}
+  .editor-actions{padding-bottom:max(18px,env(safe-area-inset-bottom))}
+}
+@media(max-width:365px){
+  .wrap,.header-in{padding-inline:14px}
+  .fixture-panel{padding:15px}
+  .library-actions button{font-size:13px}
+}
+
+@media(max-width:540px){
+.fixture-inner>div{flex:1 1 180px}
+.fixture-inner>button{flex:1 1 170px;max-width:100%}
+}
+
+/* P8 mobile polish: messages below sticky header, contextual first-page help. */
+.toast{bottom:auto;max-height:min(24dvh,180px);overflow:hidden;overflow-wrap:anywhere;line-height:1.45}
+.library-title-row{display:flex;align-items:center;justify-content:space-between;gap:14px;min-width:0}
+.help-icon{width:44px;height:44px;min-width:44px;min-height:44px;border-radius:50%;padding:0;background:#20313b;color:var(--aqua);font-weight:800;font-size:21px;border:1px solid #537c77}
+.external-notice{max-width:840px;margin:0 auto;padding:10px 20px;border-bottom:1px solid #81683e;background:#302a20;color:#ffe1a7;font-size:12px;line-height:1.4}
+@media(max-width:360px){.library-title-row h1{font-size:22px}}
+
+/* Gate C blocker fixes: explain linked deletion and keep import confirmation in sight. */
+.linked-warning{font-size:13px;color:#f1c1c2;border-left:3px solid #b77b85;padding-left:10px}
+.import-feedback{border:1px solid #569a8a;background:#17332f;border-radius:11px;margin-top:14px;padding:12px 14px;color:#c9fbe7;line-height:1.45;font-size:14px;overflow-wrap:anywhere}
+.import-feedback.error{border-color:#b36677;background:#3b2530;color:#ffe6e6}
+.import-preview{scroll-margin-top:calc(95px + env(safe-area-inset-top));border:1px solid #548978;border-radius:14px;background:#142923;padding:16px;margin:15px 0;display:grid;gap:10px}
+.import-preview h2{font-size:18px}
+.import-preview .info-line{display:flex;justify-content:space-between;gap:14px}
+.import-explain{color:#e1f4ec;font-size:13px;line-height:1.55}
+
+.queue-meta{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.queue-key{color:#b4c1d3;font-variant-numeric:tabular-nums}
+.queue-position-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.queue-position-select{min-height:44px;min-width:145px;max-width:100%;padding:8px 12px;border:1px solid #526475;border-radius:10px;background:#202c38;color:var(--txt);font:inherit;font-size:14px}
+.queue-position-select:disabled{opacity:.55}
+.queue-position-select:focus-visible{outline:2px solid var(--aqua);outline-offset:2px}
+
+</style>
+</head>
+<body>
+  <div id="app"><div class="boot">กำลังเปิด Prompt Manager…</div></div>
+  <div id="dialog-layer" aria-live="polite"></div>
+  <script>window.PMB_CONFIG=Object.freeze({"env": "PROD", "version": "1.0.0", "buildId": "b0009", "schemaVersion": 2});</script>
+<script>
+'use strict';
+(() => {
+  const CFG = Object.freeze(window.PMB_CONFIG);
+  const namespaces = Object.freeze({ TEST: 'blake_prompt_manager_test', PROD: 'blake_prompt_manager_prod' });
+  if (!['TEST', 'PROD'].includes(CFG.env)) throw Error('Invalid fixed build environment');
+  const APP = (window.PMB = { config: CFG, dbName: namespaces[CFG.env] });
+  const error = (code, message) => Object.assign(new Error(message), { code });
+  const text = (value, max, name, required=false) => {
+    if (typeof value !== 'string' || value.length > max || (required && !value.trim())) {
+      throw error('VALIDATION', `${name} ต้องเป็นข้อความและไม่เกิน ${max} ตัวอักษร`);
+    }
+    return value;
+  };
+  const idOK = id => typeof id === 'string' && /^[a-z][a-z0-9]*-[a-zA-Z0-9-]{8,70}$/.test(id);
+  const now = () => new Date().toISOString();
+  const newId = (prefix) => `${prefix}-${crypto.randomUUID()}`;
+  const allowedStatus = ['untested', 'testing', 'tested'];
+  function validatePrompt(rec) {
+    if (!idOK(rec.id)) throw error('VALIDATION', 'Invalid prompt id');
+    text(rec.title, 180, 'ชื่อ Prompt', true);
+    text(rec.positive, 200000, 'Positive');
+    text(rec.negative, 200000, 'Negative');
+    if (!rec.positive.trim() && !rec.negative.trim()) throw error('VALIDATION', 'ใส่ Positive หรือ Negative อย่างน้อยหนึ่งช่อง');
+    text(rec.notes, 200000, 'Notes');
+    text(rec.platform, 160, 'Platform');
+    text(rec.model, 160, 'Checkpoint');
+    if (!Array.isArray(rec.tags) || rec.tags.length > 100 || rec.tags.some(t => typeof t !== 'string' || t.length > 100)) throw error('VALIDATION','Tags ไม่ถูกต้อง');
+    if (!allowedStatus.includes(rec.status) || typeof rec.favorite !== 'boolean') throw error('VALIDATION','สถานะไม่ถูกต้อง');
+    if (!rec.settings || typeof rec.settings !== 'object' || Array.isArray(rec.settings) || JSON.stringify(rec.settings).length > 25000) throw error('VALIDATION','Settings ไม่ถูกต้อง');
+    if (!Array.isArray(rec.loras) || JSON.stringify(rec.loras).length > 25000) throw error('VALIDATION','LoRA ไม่ถูกต้อง');
+    return rec;
+  }
+  function validateSnippet(rec) {
+    if (!idOK(rec.id)) throw error('VALIDATION','Invalid snippet id');
+    text(rec.title, 180, 'ชื่อ Snippet', true);
+    text(rec.language, 80, 'Language');
+    text(rec.content, 200000, 'Snippet content');
+    if (rec.parentPromptId !== null && !idOK(rec.parentPromptId)) throw error('VALIDATION','Invalid linked prompt');
+    return rec;
+  }
+  function validateDraft(rec) {
+    if (typeof rec.id !== 'string' || rec.id.length > 180 || !/^(prompts|snippets):[a-zA-Z0-9-]+:[a-zA-Z]+$/.test(rec.id)) throw error('VALIDATION','Invalid draft key');
+    text(rec.text, 200000, 'Draft');
+    return rec;
+  }
+  const html = (tag, attrs={}, ...children) => {
+    const el = document.createElement(tag);
+    for (const [key, val] of Object.entries(attrs)) {
+      if (key === 'class') el.className = val;
+      else if (key === 'text') el.textContent = String(val);
+      else if (key === 'dataset') Object.entries(val).forEach(([k,v]) => el.dataset[k] = v);
+      else if (key === 'value') el.value = val;
+      else if (key === 'type') el.type = val;
+      else if (key === 'aria-label') el.setAttribute('aria-label',val);
+      else if (key === 'rows') el.rows = val;
+    }
+    for (const child of children.flat()) {
+      if (child === null || child === undefined) continue;
+      el.appendChild(child instanceof Node ? child : document.createTextNode(String(child)));
+    }
+    return el;
+  };
+  APP.core = { error, text, idOK, now, newId, validatePrompt, validateSnippet, validateDraft, html };
+})();
+
+</script>
+<script>
+'use strict';
+(() => {
+  const APP=window.PMB;
+  const {error,newId,now,validatePrompt,validateSnippet,validateDraft}=APP.core;
+  const DB_VERSION=2, SCHEMA_VERSION=2;
+  let handle=null;
+  let writesBlocked=false;
+  const channel=typeof BroadcastChannel==='function'?new BroadcastChannel('prompt-manager-'+APP.config.env):null;
+  if(channel)channel.onmessage=e=>{if(e.data?.event==='committed' && e.data?.db===APP.dbName)APP.onExternalWrite?.();};
+  const recordStores=['prompts','snippets'];
+  function tableName(type){ if(!recordStores.includes(type)) throw error('VALIDATION','Unknown type'); return type; }
+  function ensureWritable(){if(writesBlocked)throw error('BLOCKED','Database version changed; refresh required');}
+  function request(req){return new Promise((res,rej)=>{req.onsuccess=()=>res(req.result);req.onerror=()=>rej(req.error||error('STORAGE','IndexedDB request failed'));});}
+  async function init(){
+    return new Promise((resolve,reject)=>{
+      const r=indexedDB.open(APP.dbName,DB_VERSION);
+      r.onupgradeneeded=()=>{
+        const d=r.result;
+        for(const name of ['prompts','snippets','drafts','presets','queueItems','meta']) if(!d.objectStoreNames.contains(name))d.createObjectStore(name,{keyPath:'id'});
+      };
+      r.onblocked=()=>reject(error('BLOCKED','Close other tabs holding an older database version'));
+      r.onerror=()=>reject(r.error||error('STORAGE','Cannot open database'));
+      r.onsuccess=async()=>{
+        handle=r.result;
+        handle.onversionchange=()=>{writesBlocked=true;handle.close();APP.onVersionBlocked?.();};
+        try{
+          await transaction(['meta'],'readwrite', async tx=>{
+            const s=tx.objectStore('meta');const old=await request(s.get('schema'));
+            if(old && (old.schemaVersion>SCHEMA_VERSION || old.schemaVersion<1 || old.environment!==APP.config.env)) throw error('BLOCKED','Database schema/environment incompatible');
+            if(old && old.schemaVersion<SCHEMA_VERSION) await request(s.put({...old,schemaVersion:SCHEMA_VERSION,migratedAt:now(),migration:'v1_to_v2_queue_store'}));
+            if(!old)await request(s.add({id:'schema',schemaVersion:SCHEMA_VERSION,environment:APP.config.env,createdAt:now()}));
+          });
+          resolve();
+        } catch(e){writesBlocked=true;reject(e);}
+      };
+    });
+  }
+  // Work must be requested before the IndexedDB transaction becomes inactive.
+  // Callbacks only await native IDB requests, not network / unrelated async tasks.
+  function transaction(names,mode,worker){
+    if(mode==='readwrite')ensureWritable();
+    if(!handle) return Promise.reject(error('STORAGE','Storage not initialized'));
+    return new Promise((resolve,reject)=>{
+      let result,workerFailure=null,settled=false;
+      let tx;
+      try{tx=handle.transaction(names,mode);}catch(e){reject(e);return;}
+      const fail=e=>{if(!settled){settled=true;reject(e);}};
+      tx.oncomplete=()=>{if(!settled){
+        settled=true;
+        if(mode==='readwrite' && names.some(name=>['prompts','snippets','presets','queueItems'].includes(name))){
+          try{channel?.postMessage({event:'committed',db:APP.dbName,buildId:APP.config.buildId});}catch{}
+        }
+        resolve(result);
+      }};
+      tx.onabort=()=>fail(workerFailure||tx.error||error('STORAGE','Transaction aborted'));
+      tx.onerror=()=>{};
+      Promise.resolve().then(()=>worker(tx)).then(v=>{result=v;}).catch(e=>{workerFailure=e;try{tx.abort();}catch{fail(e);}});
+    });
+  }
+  const read=(name,id)=>transaction([name],'readonly',tx=>request(tx.objectStore(name).get(id)));
+  const list=(name)=>transaction([name],'readonly',tx=>request(tx.objectStore(name).getAll()));
+  async function get(type,id){tableName(type);return read(type,id);}
+  async function all(type,{trash=false}={}){
+    tableName(type);
+    const records=await list(type);
+    return records.filter(r=>Boolean(r.deletedAt)===trash).sort((a,b)=>b.updatedAt.localeCompare(a.updatedAt));
+  }
+  function createData(type,input){
+    const t=now();
+    const common={id:newId(type==='prompts'?'prompt':'snippet'),revision:1,createdAt:t,updatedAt:t,deletedAt:null};
+    if(type==='prompts')return validatePrompt({...common,title:input.title||'',positive:input.positive||'',negative:input.negative||'',notes:input.notes||'',platform:input.platform||'',model:input.model||'',tags:input.tags??[],status:input.status??'untested',favorite:input.favorite??false,settings:input.settings??{},loras:input.loras??[]});
+    return validateSnippet({...common,title:input.title||'',language:input.language||'text',content:input.content||'',parentPromptId:input.parentPromptId??null});
+  }
+  async function create(type,input){
+    tableName(type);
+    if(type==='snippets'&&input.parentPromptId){const p=await get('prompts',input.parentPromptId);if(!p||p.deletedAt)throw error('VALIDATION','Linked prompt not found');}
+    const record=createData(type,input);
+    await transaction([type],'readwrite',tx=>request(tx.objectStore(type).add(record)));
+    return record;
+  }
+  async function update(type,id,patch,expectedRevision){
+    tableName(type);
+    const allowed=type==='prompts'?['title','positive','negative','notes','platform','model','tags','status','favorite','settings','loras']:['title','language','content'];
+    if(!Object.keys(patch).length||Object.keys(patch).some(k=>!allowed.includes(k)))throw error('VALIDATION','Unsupported field edit');
+    return transaction([type],'readwrite',async tx=>{
+      const store=tx.objectStore(type),before=await request(store.get(id));
+      if(!before||before.deletedAt)throw error('NOT_FOUND','Record not found');
+      if(before.revision!==expectedRevision)throw error('CONFLICT','ข้อมูลถูกแก้จากอีกแท็บแล้ว กรุณาโหลดรายการใหม่ (Draft ยังอยู่)');
+      const after={...before,...patch,revision:before.revision+1,updatedAt:now()};
+      (type==='prompts'?validatePrompt:validateSnippet)(after);
+      await request(store.put(after));return after;
+    });
+  }
+  async function toggleDeleted(type,id,expectedRevision,restore=false){
+    tableName(type);
+    return transaction([type],'readwrite',async tx=>{
+      const s=tx.objectStore(type),old=await request(s.get(id));
+      if(!old)throw error('NOT_FOUND','Record not found');
+      if(old.revision!==expectedRevision)throw error('CONFLICT','รายการเปลี่ยนแปลงจากอีกแท็บแล้ว');
+      if(Boolean(old.deletedAt)!==restore)throw error('CONFLICT','Delete state already changed');
+      const next={...old,deletedAt:restore?null:now(),revision:old.revision+1,updatedAt:now()};
+      await request(s.put(next));return next;
+    });
+  }
+  // Preflight for user-visible linked-Snippet confirmation before permanent deletion.
+  async function linkedSnippets(promptId){
+    const rows=await list('snippets');
+    return rows.filter(s=>s.parentPromptId===promptId).map(s=>({id:s.id,title:s.title,deletedAt:s.deletedAt}));
+  }
+  async function destroy(type,id,expectedRevision,confirmedLinkedIds=null){
+    tableName(type);
+    const stores=type==='prompts'?['prompts','snippets']:['snippets'];
+    return transaction(stores,'readwrite',async tx=>{
+      const s=tx.objectStore(type),r=await request(s.get(id));
+      if(!r||!r.deletedAt)throw error('VALIDATION','Only trashed records can be permanently deleted');
+      if(r.revision!==expectedRevision)throw error('CONFLICT','Record changed');
+      if(type==='prompts'){
+        const refs=await request(tx.objectStore('snippets').getAll());
+        const linked=refs.filter(v=>v.parentPromptId===id);
+        const actualIds=linked.map(v=>v.id).sort();
+        // Reject unexpected concurrent additions/changes rather than silently delete them.
+        if(linked.length && !Array.isArray(confirmedLinkedIds))
+          throw error('VALIDATION','มี Snippet ผูกอยู่ ต้องยืนยันลบพร้อมกันก่อน');
+        const confirmed=Array.isArray(confirmedLinkedIds)?[...confirmedLinkedIds].sort():[];
+        if(actualIds.length!==confirmed.length || actualIds.some((key,i)=>key!==confirmed[i]))
+          throw error('CONFLICT','รายการ Snippet ที่ผูกอยู่เปลี่ยนแล้ว กรุณากดลบใหม่เพื่อตรวจสอบอีกครั้ง');
+        for(const item of linked)await request(tx.objectStore('snippets').delete(item.id));
+        await request(s.delete(id));
+        return {deletedSnippets:linked.length};
+      }
+      await request(s.delete(id));
+      return {deletedSnippets:0};
+    });
+  }
+  const draftId=(type,id,field)=>`${type}:${id}:${field}`;
+  async function saveDraft(type,id,field,text,baseRevision){
+    const d=validateDraft({id:draftId(type,id,field),type,recordId:id,field,text,baseRevision,updatedAt:now()});
+    await transaction(['drafts'],'readwrite',tx=>request(tx.objectStore('drafts').put(d)));
+    return d;
+  }
+  const getDraft=(type,id,field)=>read('drafts',draftId(type,id,field));
+  const clearDraft=(type,id,field)=>transaction(['drafts'],'readwrite',tx=>request(tx.objectStore('drafts').delete(draftId(type,id,field))));
+  // TEST-only: exact structured seed grammar; all fixture entries, snippets, presets retained atomically.
+  async function loadTestSample(seed){
+    if(APP.config.env!=='TEST')throw error('BLOCKED','Seed only available in TEST builds');
+    if(seed?.format!=='prompt-manager.seed'||seed.schemaVersion!==1||!Array.isArray(seed.entries)||!Array.isArray(seed.snippets)||!Array.isArray(seed.presets))throw error('VALIDATION','Invalid seed format');
+    if(seed.entries.length>100||seed.snippets.length>300||seed.presets.length>100)throw error('VALIDATION','Seed exceeds limits');
+    if((await all('prompts')).length||(await all('snippets')).length||(await all('prompts',{trash:true})).length||(await all('snippets',{trash:true})).length||(await list('presets')).length)throw error('VALIDATION','TEST database must be empty before loading fixture');
+    const keys=new Map();const prompts=[];const snippets=[];const presets=[];
+    for(const ent of seed.entries){
+      if(typeof ent.externalKey!=='string'||keys.has(ent.externalKey))throw error('VALIDATION','Duplicate/bad external key');
+      const r=createData('prompts',ent);keys.set(ent.externalKey,r.id);prompts.push(r);
+    }
+    for(const sn of seed.snippets){
+      if(sn.parentExternalKey!=null&&!keys.has(sn.parentExternalKey))throw error('VALIDATION','Unknown linked seed prompt');
+      snippets.push(createData('snippets',{...sn,parentPromptId:sn.parentExternalKey==null?null:keys.get(sn.parentExternalKey)}));
+    }
+    for(const pr of seed.presets){
+      if(typeof pr.title!=='string'||!pr.title.trim()||JSON.stringify(pr).length>25000)throw error('VALIDATION','Invalid test preset');
+      presets.push({id:newId('preset'),title:pr.title,platform:pr.platform||'',model:pr.model||'',settings:pr.settings||{},loras:pr.loras||[],revision:1,createdAt:now(),updatedAt:now()});
+    }
+    await transaction(['prompts','snippets','presets'],'readwrite',async tx=>{
+      // Re-check emptiness inside write lock, protects concurrent TEST sample clicks.
+      for(const store of ['prompts','snippets','presets'])if(await request(tx.objectStore(store).count())!==0)throw error('CONFLICT','TEST data is no longer empty');
+      for(const row of prompts)await request(tx.objectStore('prompts').add(row));
+      for(const row of snippets)await request(tx.objectStore('snippets').add(row));
+      for(const row of presets)await request(tx.objectStore('presets').add(row));
+    });
+    return {prompts:prompts.length,snippets:snippets.length,presets:presets.length};
+  }
+  APP.db={init,get,all,create,update,toggleDeleted,destroy,linkedSnippets,getDraft,saveDraft,clearDraft,loadTestSample,DB_VERSION,SCHEMA_VERSION,_internal:{transaction,request,list,createData}};
+})();
+
+</script>
+<script>
+'use strict';
+// Gate B data operations. All writes use the single IndexedDB repository/transaction contract.
+(() => {
+  const APP=window.PMB, db=APP.db, C=APP.core;
+  const {transaction:tx,request:req,list,createData}=db._internal;
+  const stores=['prompts','snippets','presets','queueItems','drafts'];
+  const clone=v=>structuredClone(v);
+  const fail=(message)=>{throw C.error('VALIDATION',message);};
+  const string=(v,max=180)=>typeof v==='string'&&v.length<=max;
+  const scalar=(v,min,max)=>v==null||(typeof v==='number'&&Number.isFinite(v)&&v>=min&&v<=max);
+  const bounded=(obj,max)=>obj && typeof obj==='object'&&!Array.isArray(obj)&&JSON.stringify(obj).length<=max;
+  const unique=values=>new Set(values).size===values.length;
+  function validateConfig(settings,loras){
+    if(!bounded(settings,25000)||!Array.isArray(loras)||loras.length>50||JSON.stringify(loras).length>25000)fail('ขนาด Settings/LoRA ไม่ถูกต้อง');
+    for(const [key,a,b] of [['samplingSteps',1,250],['cfgScale',0,50],['width',1,16384],['height',1,16384]])if(!scalar(settings[key],a,b))fail(`${key} อยู่นอกช่วง`);
+    if(settings.seed!=null&&!string(String(settings.seed),80))fail('Seed ยาวเกินไป');
+    if(settings.samplingMethod!=null&&!string(settings.samplingMethod,120))fail('Sampler ไม่ถูกต้อง');
+    if(settings.upscale!=null){const v=settings.upscale;if(!bounded(v,2000)||typeof v.enabled!=='boolean'||(v.method!=null&&!string(v.method,180))||!scalar(v.scale,0,16))fail('Upscale ไม่ถูกต้อง');}
+    if(settings.faceRestore!=null){const v=settings.faceRestore;if(!bounded(v,2000)||typeof v.enabled!=='boolean'||(v.method!=null&&!string(v.method,180)))fail('Face Restore ไม่ถูกต้อง');}
+    if(settings.characterRepairs!=null){if(!Array.isArray(settings.characterRepairs)||settings.characterRepairs.length>30)fail('Repairs เกินกำหนด');for(const r of settings.characterRepairs){if(!bounded(r,7000)||!['face','body','hand','custom'].includes(r.area)||!string(r.loraName||'',180)||!scalar(r.weight,-5,5)||!scalar(r.denoiseStrength,0,1)||!scalar(r.confidence,0,1)||!string(r.positive||'',2000)||!string(r.negative||'',2000))fail('Character Repair ไม่ถูกต้อง');}}
+    if(settings.customFields!=null){if(!Array.isArray(settings.customFields)||settings.customFields.length>50)fail('Custom fields เกินกำหนด');for(const f of settings.customFields)if(!f||!string(f.key,120)||!f.key.trim()||!string(f.value,2000))fail('Custom field ไม่ถูกต้อง');if(!unique(settings.customFields.map(f=>f.key.toLocaleLowerCase().trim())))fail('Custom key ซ้ำกัน');}
+    for(const l of loras)if(!l||!string(l.name,180)||!l.name.trim()||!scalar(l.weight,-5,5)||(l.triggerWords!=null&&!string(l.triggerWords,2000)))fail('LoRA ไม่ถูกต้อง');
+    return true;
+  }
+  const validatePrompt=r=>{C.validatePrompt(r);validateConfig(r.settings,r.loras);return r;};
+  function validatePreset(r){
+    if(!C.idOK(r.id)||!string(r.title,180)||!r.title.trim()||!string(r.platform||'',160)||!string(r.model||'',160)||!Number.isSafeInteger(r.revision)||r.revision<1)fail('Preset ไม่ถูกต้อง');
+    validateConfig(r.settings,r.loras);return r;
+  }
+  function validateQueue(r){
+    if(!C.idOK(r.id)||!C.idOK(r.originalPromptId)||!Number.isSafeInteger(r.order)||r.order<0||!Number.isSafeInteger(r.revision)||r.revision<1||!bounded(r.snapshot,275000)||!string(r.snapshot.title,180)||!string(r.snapshot.positive,200000)||!string(r.snapshot.negative,200000)||!string(r.snapshot.model||'',160))fail('Queue snapshot ไม่ถูกต้อง');
+    if(!Number.isSafeInteger(r.sourceRevision)||r.sourceRevision<1)fail('Queue revision ไม่ถูกต้อง');
+    return r;
+  }
+  const allPresets=async()=> (await list('presets')).sort((a,b)=>b.updatedAt.localeCompare(a.updatedAt));
+  async function addPreset(title,record){
+    const t=C.now(),r=validatePreset({id:C.newId('preset'),title,model:record.model||'',platform:record.platform||'',settings:clone(record.settings||{}),loras:clone(record.loras||[]),revision:1,createdAt:t,updatedAt:t});
+    await tx(['presets'],'readwrite',x=>req(x.objectStore('presets').add(r)));return r;
+  }
+  async function removePreset(id,revision){return tx(['presets'],'readwrite',async x=>{const s=x.objectStore('presets'),r=await req(s.get(id));if(!r||r.revision!==revision)throw C.error('CONFLICT','Preset ถูกแก้ไขแล้ว');await req(s.delete(id));});}
+  const queueSort=(a,b)=>a.order-b.order||a.createdAt.localeCompare(b.createdAt)||a.id.localeCompare(b.id);
+  const allQueue=async()=> (await list('queueItems')).sort(queueSort);
+  async function enqueue(id){
+    // Snapshot is created after reading source and committed unchanged, not a live reference.
+    return tx(['prompts','queueItems'],'readwrite',async x=>{
+      const r=await req(x.objectStore('prompts').get(id));if(!r||r.deletedAt)throw C.error('NOT_FOUND','ไม่มี Prompt ที่ต้องการ');
+      const s=x.objectStore('queueItems'),old=await req(s.getAll()),now=C.now();
+      const snap={title:r.title,positive:r.positive,negative:r.negative,platform:r.platform,model:r.model,tags:clone(r.tags),settings:clone(r.settings),loras:clone(r.loras)};
+      const item=validateQueue({id:C.newId('queue'),order:old.reduce((max,v)=>Math.max(max,v.order),-1)+1,originalPromptId:r.id,sourceRevision:r.revision,snapshot:snap,snapshotAt:now,copiedAt:null,completedAt:null,revision:1,createdAt:now,updatedAt:now});
+      await req(s.add(item));return item;
+    });
+  }
+  async function editQueue(id,patch,expectedRevision){
+    if(!Object.keys(patch).length||Object.keys(patch).some(k=>!['copiedAt','completedAt','order'].includes(k)))fail('Queue patch ไม่ถูกต้อง');
+    return tx(['queueItems'],'readwrite',async x=>{const s=x.objectStore('queueItems'),r=await req(s.get(id));if(!r||r.revision!==expectedRevision)throw C.error('CONFLICT','คิวถูกแก้ไขจากอีกแท็บแล้ว');const next=validateQueue({...r,...patch,revision:r.revision+1,updatedAt:C.now()});await req(s.put(next));return next;});
+  }
+  async function moveQueueTo(id,targetIndex,expectedIds){
+    if(!Number.isSafeInteger(targetIndex)||targetIndex<0)fail('Queue position ไม่ถูกต้อง');
+    return tx(['queueItems'],'readwrite',async x=>{
+      const s=x.objectStore('queueItems'),items=(await req(s.getAll())).sort(queueSort);
+      // An outdated select must not silently reorder a newer Queue from another tab.
+      if(!Array.isArray(expectedIds)||expectedIds.length!==items.length||
+         items.some((row,i)=>row.id!==expectedIds[i]))
+        throw C.error('CONFLICT','Queue เปลี่ยนจากอีกแท็บแล้ว โปรดลองเลือกตำแหน่งใหม่');
+      const index=items.findIndex(r=>r.id===id);
+      if(index<0||targetIndex>=items.length)fail('ไม่พบรายการ/ตำแหน่งที่ต้องการ');
+      if(index===targetIndex)return false;
+      // Relocate (shift intervening items), not swap. Also normalize old duplicate/gapped orders.
+      const [moved]=items.splice(index,1);
+      items.splice(targetIndex,0,moved);
+      const time=C.now();
+      for(let i=0;i<items.length;i++){
+        const row=items[i];
+        if(row.order!==i){
+          row.order=i;row.revision++;row.updatedAt=time;
+          await req(s.put(row));
+        }
+      }
+      return true;
+    });
+  }
+  const deleteQueue=id=>tx(['queueItems'],'readwrite',x=>req(x.objectStore('queueItems').delete(id)));
+  const clearQueue=()=>tx(['queueItems'],'readwrite',x=>req(x.objectStore('queueItems').clear()));
+  async function refreshSnapshot(id,expectedRevision){
+    return tx(['queueItems','prompts'],'readwrite',async x=>{const q=x.objectStore('queueItems'),r=await req(q.get(id));if(!r||r.revision!==expectedRevision)throw C.error('CONFLICT','Queue เปลี่ยนแปลงแล้ว');const p=await req(x.objectStore('prompts').get(r.originalPromptId));if(!p||p.deletedAt)throw C.error('NOT_FOUND','ต้นฉบับถูกลบแล้ว Snapshot เดิมยังใช้ได้');const t={...r,sourceRevision:p.revision,snapshotAt:C.now(),snapshot:{title:p.title,positive:p.positive,negative:p.negative,model:p.model,platform:p.platform,tags:clone(p.tags),settings:clone(p.settings),loras:clone(p.loras)},revision:r.revision+1,updatedAt:C.now()};validateQueue(t);await req(q.put(t));return t;});
+  }
+  async function exportBackup(){
+    const result=await tx(stores,'readonly',async x=>{const out={};for(const s of stores)out[s]=await req(x.objectStore(s).getAll());return out;});
+    return {format:'prompt-manager.backup',schemaVersion:2,sourceAppVersion:APP.config.version,sourceBuild:APP.config.buildId,sourceEnvironment:APP.config.env,exportedAt:C.now(),stores:result};
+  }
+  function validateWhole(records){
+    if(!records||typeof records!=='object'||Array.isArray(records))fail('ไม่มีข้อมูลรายการ');
+    for(const name of stores){const rows=records[name];if(!Array.isArray(rows)||rows.length>10000)fail(`Store ${name} ไม่ถูกต้อง`);const keys=rows.map(v=>v?.id);if(!unique(keys))fail(`พบ ID ซ้ำใน ${name}`);
+      for(const r of rows){if(!r||!C.idOK(r.id)){
+        if(name==='drafts'&&r&&typeof r.id==='string'&&r.id.length<180){C.validateDraft(r);continue;}
+        fail(`Invalid ID in ${name}`);
+      }
+      if(name==='prompts')validatePrompt(r);
+      if(name==='snippets')C.validateSnippet(r);
+      if(name==='presets')validatePreset(r);
+      if(name==='queueItems')validateQueue(r);
+      if(name==='drafts')C.validateDraft(r);
+      if(!['drafts'].includes(name)&&(!Number.isSafeInteger(r.revision)||r.revision<1||!string(r.createdAt,80)||!string(r.updatedAt,80)))fail(`Record revision/date ไม่ถูกต้องใน ${name}`);
+      }
+    }
+    const promptIds=new Set(records.prompts.map(r=>r.id));
+    for(const sn of records.snippets)if(sn.parentPromptId!==null&&!promptIds.has(sn.parentPromptId))fail('Snippet ผูก Prompt ที่ไม่มีอยู่ใน Backup');
+    return records;
+  }
+  // Parse before opening a write transaction; all rows are validated before any mutation.
+  function parseImport(raw){
+    if(typeof raw!=='string'||new TextEncoder().encode(raw).length>8*1024*1024)fail('ไฟล์ต้องไม่เกิน 8 MB');
+    let data;try{data=JSON.parse(raw);}catch{fail('JSON ไม่ถูกต้อง');}
+    if(data?.format==='prompt-manager.backup'){
+      if(data.schemaVersion!==2)fail('Backup schema ไม่รองรับ ต้องเป็น version 2');
+      return {kind:'backup',records:validateWhole(data.stores),meta:{exportedAt:data.exportedAt,sourceEnvironment:data.sourceEnvironment}};
+    }
+    if(data?.format==='prompt-manager.seed'){
+      if(data.schemaVersion!==1||!Array.isArray(data.entries)||!Array.isArray(data.snippets)||!Array.isArray(data.presets)||data.entries.length>1000||data.snippets.length>3000||data.presets.length>1000)fail('Seed format ไม่ถูกต้อง');
+      const refs=new Map(),seen=new Set(),out=Object.fromEntries(stores.map(s=>[s,[]]));
+      for(const ent of data.entries){if(!string(ent.externalKey,100)||seen.has(ent.externalKey))fail('Seed externalKey ซ้ำ/ไม่ถูกต้อง');seen.add(ent.externalKey);const rec=createData('prompts',ent);validatePrompt(rec);refs.set(ent.externalKey,rec.id);out.prompts.push(rec);}
+      for(const sn of data.snippets){if(!string(sn.externalKey||'',100)||seen.has(sn.externalKey))fail('Snippet externalKey ซ้ำ/ไม่ถูกต้อง');seen.add(sn.externalKey);if(sn.parentExternalKey!=null&&!refs.has(sn.parentExternalKey))fail('Snippet อ้าง Prompt ที่ไม่มีอยู่');out.snippets.push(createData('snippets',{...sn,parentPromptId:sn.parentExternalKey==null?null:refs.get(sn.parentExternalKey)}));}
+      for(const p of data.presets){if(!string(p.externalKey||'',100)||seen.has(p.externalKey))fail('Preset externalKey ซ้ำ/ไม่ถูกต้อง');seen.add(p.externalKey);const t=C.now();out.presets.push(validatePreset({id:C.newId('preset'),title:p.title,model:p.model||'',platform:p.platform||'',settings:clone(p.settings||{}),loras:clone(p.loras||[]),revision:1,createdAt:t,updatedAt:t}));}
+      return {kind:'seed',records:validateWhole(out),meta:{description:data.description||''}};
+    }
+    fail('รองรับเฉพาะ prompt-manager.seed และ prompt-manager.backup');
+  }
+  function parsePaste(raw){
+    // Exact grammar; no guessing about freeform prose or headers inside user content.
+    // === PROMPT ===\nTitle: ...\nPositive:\n...\nNegative:\n...\n=== END ===
+    if(typeof raw!=='string'||raw.length>400000)fail('Paste ยาวเกินไป');
+    const sections=raw.trim().split(/(?=^=== PROMPT ===\s*$)/m).filter(Boolean);
+    if(!sections.length||sections.length>100)fail('ต้องมี === PROMPT === อย่างน้อยหนึ่งรายการ');
+    const out=Object.fromEntries(stores.map(s=>[s,[]]));
+    for(const sec of sections){const m=/^=== PROMPT ===\s*\nTitle: ([^\n]+)\nPositive:\n([\s\S]*?)\nNegative:\n([\s\S]*?)\n=== END ===\s*$/.exec(sec.trim());if(!m)fail('Paste grammar ไม่ตรงรูปแบบ Title / Positive / Negative / END');out.prompts.push(createData('prompts',{title:m[1],positive:m[2],negative:m[3]}));}
+    return {kind:'paste',records:validateWhole(out),meta:{}};
+  }
+  const summary=plan=>Object.fromEntries(stores.map(s=>[s,plan.records[s].length]));
+  async function applyImport(plan,mode){
+    if(!['merge','replace'].includes(mode))fail('Unknown import mode');
+    validateWhole(plan.records);
+    return tx(stores,'readwrite',async x=>{
+      const imported=summary(plan);
+      if(mode==='merge'){
+        for(const name of stores){const s=x.objectStore(name);for(const r of plan.records[name])if(await req(s.get(r.id)))throw C.error('CONFLICT',`ID ซ้ำใน ${name} — ไม่ได้เขียนข้อมูลใดๆ (ใช้ Replace เฉพาะเมื่อสำรองเดิมแล้ว)`);}
+      }else for(const name of stores)await req(x.objectStore(name).clear());
+      for(const name of stores){const s=x.objectStore(name);for(const r of plan.records[name])await req(s.add(clone(r)));}
+      return {mode,imported};
+    });
+  }
+  APP.gateB={validateConfig,allPresets,addPreset,removePreset,allQueue,enqueue,editQueue,moveQueueTo,deleteQueue,clearQueue,refreshSnapshot,exportBackup,parseImport,parsePaste,summary,applyImport};
+})();
+
+</script>
+<script>
+'use strict';
+// Gate B screens and controller: search, settings, queue, import/backup.
+(() => {
+  const APP=window.PMB, B=APP.gateB, db=APP.db;
+  APP.makeGateBUI = ctx => {
+    const {h,btn,text,container,back,notify,modal,copy,go,render,state,card}=ctx;
+    const n=(tag,str='',cls='')=>text(tag,str,cls);
+    const info=(label,val)=>h('div',{class:'info-line'},n('span',label,'mini'),n('strong',val==null||val===''?'—':String(val)));
+    const input=(value='',key,kind='text',label='',placeholder='')=>{
+      const el=h('input',{class:'input',value:value??''});el.type=kind;el.dataset.adv=key;el.placeholder=placeholder;
+      if(label)el.setAttribute('aria-label',label);
+      if(kind==='number'){el.step='any';el.inputMode='decimal';}
+      if(kind==='checkbox')el.checked=Boolean(value);
+      return el;
+    };
+    const field=(title,el)=>h('div',{class:'field'},h('label',{text:title}),el);
+    const select=(key,value,options)=>{
+      const sel=h('select',{class:'input'});sel.dataset.adv=key;
+      options.forEach(([val,label])=>{const op=h('option',{text:label});op.value=val;sel.append(op);});sel.value=value??'';return sel;
+    };
+    const row=(...els)=>h('div',{class:'formgrid'},...els);
+    const f=state.filters={q:'',model:'',platform:'',tags:'',status:'',favorite:false,sort:'newest'};
+    let plan=null,advanced=null,queueRows=[],importMessage=null,importFileName=null,readSeq=0;
+    const normalized=s=>(s||'').toLocaleLowerCase().replace(/\s+/gu,' ').trim();
+    function filterRows(prompts,snippets){
+      const tokens=normalized(f.q),required=f.tags.split(',').map(normalized).filter(Boolean);
+      let list=prompts.filter(r=>{
+        if(f.model&&r.model!==f.model)return false;if(f.platform&&r.platform!==f.platform)return false;
+        if(f.status&&r.status!==f.status)return false;
+        if(f.favorite&&!r.favorite)return false;
+        if(required.some(t=>!(r.tags||[]).some(tag=>normalized(tag)===t)))return false;
+        const linked=snippets.filter(s=>s.parentPromptId===r.id).map(s=>s.title).join(' ');
+        const hay=normalized([r.title,r.positive,r.negative,r.notes,r.model,r.platform,...r.tags,linked].join(' '));
+        return !tokens||hay.includes(tokens);
+      });
+      if(f.sort==='az')list.sort((a,b)=>a.title.localeCompare(b.title));
+      if(f.sort==='oldest')list.sort((a,b)=>a.updatedAt.localeCompare(b.updatedAt));
+      if(f.sort==='favorite')list.sort((a,b)=>Number(b.favorite)-Number(a.favorite)||b.updatedAt.localeCompare(a.updatedAt));
+      return list;
+    }
+    function resultNodes(){
+      const list=filterRows(state.records,state.snippets);
+      const singles=state.snippets.filter(s=>!s.parentPromptId&&!f.model&&!f.platform&&!f.tags.trim()&&!f.status&&!f.favorite&&(!f.q||normalized([s.title,s.language,s.content].join(' ')).includes(normalized(f.q))));
+      return [h('div',{class:'section-head'},n('h2',`Prompts (${list.length} / ${state.records.length})`)),
+        list.length?h('div',{class:'stack'},...list.map(r=>h('div',{},card(r,'prompts'),h('div',{class:'record-subrow'},btn(r.favorite?'★ Favorite':'☆ Favorite','toggle-fav','chip',{id:r.id}),btn('+ Queue','add-queue','chip',{id:r.id}),n('span',(r.tags||[]).join(' · '),'mini'))))):h('div',{class:'empty'},n('strong',state.records.length?'ไม่พบ Prompt ตามตัวกรอง':'ยังไม่มี Prompt'),n('div',state.records.length?'ลอง Clear Filters':'สร้างใหม่ หรือโหลด TEST sample')),
+        h('div',{class:'section-head'},n('h2',`Standalone Snippets (${singles.length})`)),
+        singles.length?h('div',{class:'stack'},...singles.map(s=>card(s,'snippets'))):n('p','ยังไม่มี Standalone Snippet','hint')];
+    }
+    function refreshResults(){const el=document.getElementById('results');if(el)el.replaceChildren(...resultNodes());}
+    function libraryResults(){
+      const search=h('input',{class:'input'});search.type='search';search.placeholder='ค้นหา Title, Prompt, Notes, Tags, Snippet…';search.value=f.q;search.dataset.filter='q';
+      const model=select('unused',f.model,[['','ทุก Checkpoint'],...[...new Set(state.records.map(r=>r.model).filter(Boolean))].sort().map(v=>[v,v])]);model.dataset.filter='model';
+      const platform=select('unused',f.platform,[['','ทุก Platform'],...[...new Set(state.records.map(r=>r.platform).filter(Boolean))].sort().map(v=>[v,v])]);platform.dataset.filter='platform';
+      const status=select('unused',f.status,[['','ทุกสถานะ'],['untested','Not tested'],['testing','Testing'],['tested','Tested']]);status.dataset.filter='status';
+      const sort=select('unused',f.sort,[['newest','ล่าสุด'],['oldest','เก่าสุด'],['az','ชื่อ A–Z'],['favorite','Favorite ก่อน']]);sort.dataset.filter='sort';
+      const tags=h('input',{class:'input',value:f.tags});tags.dataset.filter='tags';tags.placeholder='Tags: anime, tested (ต้องตรงทุก Tag)';
+      const fav=h('input',{type:'checkbox'});fav.checked=f.favorite;fav.dataset.filter='favorite';
+      const ctrls=h('section',{class:'search-panel'},h('div',{class:'section-head'},n('h2','Search & Filters'),btn('Clear Filters','clear-filters','chip')),
+        search,row(field('Checkpoint',model),field('Platform',platform)),row(field('Status',status),field('เรียงตาม',sort)),field('Tags (คั่นด้วยจุลภาค)',tags),h('label',{class:'check-row'},fav,n('span','เฉพาะ Favorite')));
+      return h('div',{},ctrls,h('div',{class:'results',dataset:{},},...[]));
+    }
+    function filterUI(){const wrap=libraryResults(),results=wrap.lastElementChild;results.id='results';results.replaceChildren(...resultNodes());return wrap;}
+    const updateFilter=(key,val)=>{if(!(key in f))return;f[key]=val;refreshResults();};
+    function clearFilters(){
+      Object.assign(f,{q:'',model:'',platform:'',tags:'',status:'',favorite:false,sort:'newest'});
+      document.querySelectorAll('[data-filter]').forEach(el=>{
+        const key=el.dataset.filter;
+        if(key in f){if(el.type==='checkbox')el.checked=Boolean(f[key]);else el.value=f[key];}
+      });
+      refreshResults();
+    }
+    function metadataPage(rec){
+      state.metaBaselineRevision=rec.revision;
+      const tags=h('input',{class:'input',value:rec.tags.join(', ')});tags.dataset.meta='tags';tags.placeholder='anime, realistic, tested';
+      const status=select('unused',rec.status,[['untested','Not tested'],['testing','Testing'],['tested','Tested']]);status.dataset.meta='status';
+      const favorite=h('input',{type:'checkbox'});favorite.checked=rec.favorite;favorite.dataset.meta='favorite';
+      return container(h('div',{class:'headrow'},back('Prompt'),n('span','TAGS & STATUS','overline')),n('h1',rec.title),n('p','เปลี่ยน Metadata แล้วกด Save → Confirm','hint'),
+        field('Tags (คั่นด้วยจุลภาค)',tags),field('Status',status),h('label',{class:'check-row'},favorite,n('span','Favorite')),
+        h('div',{class:'editor-actions'},btn('Cancel','meta-cancel'),btn('Save','meta-save','primary')));
+    }
+    function validateTags(input){const tags=input.split(',').map(s=>s.trim()).filter(Boolean);if(tags.length>100||tags.some(s=>s.length>100)||new Set(tags.map(normalized)).size!==tags.length)throw Error('Tags ซ้ำหรือเกินกำหนด');return tags;}
+    async function saveMeta(){const rec=await db.get('prompts',state.selectedId);if(!rec)throw Error('ไม่พบ Prompt');const area=document.querySelector('main.wrap');const patch={tags:validateTags(area.querySelector('[data-meta="tags"]').value),status:area.querySelector('[data-meta="status"]').value,favorite:area.querySelector('[data-meta="favorite"]').checked};
+      if(!await modal({title:'ยืนยัน Metadata',body:'Save การแก้ Tags, Status, Favorite?',confirm:'Confirm Save'}))return;
+      await db.update('prompts',rec.id,patch,state.metaBaselineRevision);state.metaDirty=false;await go(`#prompt/${rec.id}`);notify('บันทึก Tags/Status แล้ว');
+    }
+    const rawValue=(obj,key,def='')=>key in obj && obj[key]!=null ?obj[key]:def;
+    async function startSettings(id){
+      const rec=await db.get('prompts',id);if(!rec||rec.deletedAt)throw Error('ไม่พบ Prompt');
+      const normalizedSettings={upscale:{enabled:false,method:'',scale:null},faceRestore:{enabled:false,method:''},characterRepairs:[],customFields:[],...structuredClone(rec.settings)};
+      advanced={id,revision:rec.revision,original:{settings:structuredClone(normalizedSettings),loras:structuredClone(rec.loras)},draft:{settings:structuredClone(normalizedSettings),loras:structuredClone(rec.loras)},timer:null,writeQueue:Promise.resolve(),name:rec.title};
+      const draft=await db.getDraft('prompts',id,'settings');
+      if(draft&&draft.text){if(await modal({title:'พบ Settings Draft',body:`มีการแก้ Settings ที่ยังไม่ Save${draft.baseRevision!==rec.revision?' (ต้นฉบับเปลี่ยนไปแล้ว ต้องตรวจ Revision)':''}\nต้องการกู้ Draft หรือไม่?`,confirm:'กู้ Draft'})){
+        try{const parsed=JSON.parse(draft.text);B.validateConfig(parsed.settings,parsed.loras);advanced.draft=parsed;}catch{notify('Draft Settings ไม่ถูกต้อง เริ่มจากเวอร์ชันที่บันทึกแล้ว',true);}
+      }else await db.clearDraft('prompts',id,'settings');}
+    }
+    const dirtySettings=()=>advanced && JSON.stringify(advanced.original)!==JSON.stringify(advanced.draft);
+    async function closeSettings(){if(!advanced)return true;if(advanced.timer)clearTimeout(advanced.timer);try{await advanced.writeQueue;}catch{};
+      if(dirtySettings()&&!await modal({title:'ทิ้ง Settings ที่แก้ไว้?',body:'ยังไม่ได้ Save การออกจะลบ Draft นี้',confirm:'ทิ้งการแก้ไข',danger:true}))return false;
+      try{await db.clearDraft('prompts',advanced.id,'settings');}catch(e){notify('ล้าง Settings Draft ไม่สำเร็จ: '+e.message,true);return false;}advanced=null;return true;
+    }
+    function stashSettings(){const a=advanced;if(!a)return;if(a.timer)clearTimeout(a.timer);a.timer=setTimeout(()=>{const snap=JSON.stringify(a.draft);a.writeQueue=a.writeQueue.then(()=>db.saveDraft('prompts',a.id,'settings',snap,a.revision));a.writeQueue.catch(e=>notify('Settings Draft ไม่สำเร็จ: '+e.message,true));},400);}
+    function setAdvanced(key,val){if(!advanced)return;const bits=key.split('.');let obj=advanced.draft;for(const k of bits.slice(0,-1))obj=obj[k];obj[bits.at(-1)]=val;stashSettings();}
+    const numField=(label,key,o)=>field(label,input(rawValue(o,key.split('.').at(-1)) ,key,'number',label));
+    function settingsForm(){const a=advanced;if(!a)return container(back(),n('p','ไม่มี Settings'));
+      const S=a.draft.settings,L=a.draft.loras;const presets=state.presets||[];
+      const main=container(h('div',{class:'headrow'},back('Prompt'),n('span','GENERATION SETTINGS','overline')),n('h1','Settings · '+a.name),n('p','เปลี่ยนเฉพาะเมื่อกด Save → Confirm ไม่แก้ Prompt/Queue เดิม','hint'));
+      const group=(title,...kids)=>{const d=h('details',{class:'settings-group'},h('summary',{text:title}),h('div',{class:'settings-inside'},...kids));d.open=true;return d;};
+      const N=(key,label)=>numField(label,'settings.'+key,S);
+      const T=(key,label)=>field(label,input(rawValue(S,key),'settings.'+key));
+      main.append(group('Basics',row(N('samplingSteps','Sampling Steps'),N('cfgScale','CFG Scale')),T('samplingMethod','Sampling Method'),field('Seed',input(rawValue(S,'seed'),'settings.seed')),row(N('width','Width'),N('height','Height'))));
+      const makeLines=(rows,kind,keys,emptyMsg)=>{
+        const el=h('div',{class:'repeat-list'});
+        if(!rows.length)el.append(n('p',emptyMsg,'hint'));
+        rows.forEach((r,i)=>{const content=keys.map(([key,label,typ])=>field(label,typ==='select'?select(`${kind}.${i}.${key}`,rawValue(r,key),[['face','Face'],['body','Body'],['hand','Hand'],['custom','Custom']]):input(rawValue(r,key),`${kind}.${i}.${key}`,typ==='number'?'number':'text')));
+          el.append(h('div',{class:'repeat-item'},h('div',{class:'space'},n('strong',`${i+1}. ${kind==='loras'?'LoRA':kind==='settings.characterRepairs'?'Repair':'Custom'}`),btn('Remove','remove-advanced','chip danger',{kind,index:String(i)})),h('div',{class:'formgrid'},...content)));
+        });return el;
+      };
+      main.append(group('LoRAs',makeLines(L,'loras',[['name','LoRA name'],['weight','Weight','number'],['triggerWords','Trigger Words']],'ยังไม่มี LoRA'),btn('+ Add LoRA','add-advanced','',{kind:'loras'})));
+      const u=S.upscale||(S.upscale={enabled:false,method:'',scale:null}),fr=S.faceRestore||(S.faceRestore={enabled:false,method:''});
+      const checkbox=(title,key,value)=>{const inp=input(value,key,'checkbox');return h('label',{class:'check-row'},inp,n('span',title));};
+      main.append(group('Upscale / Face Restore',checkbox('Enable Upscale','settings.upscale.enabled',u.enabled),field('Upscale method',input(rawValue(u,'method'),'settings.upscale.method')),numField('Upscale scale','settings.upscale.scale',u),
+        checkbox('Enable Face Restore','settings.faceRestore.enabled',fr.enabled),field('Face Restore method',input(rawValue(fr,'method'),'settings.faceRestore.method'))));
+      const repairs=S.characterRepairs||(S.characterRepairs=[]);
+      main.append(group('Character Repairs',makeLines(repairs,'settings.characterRepairs',[['area','Area','select'],['loraName','Repair LoRA'],['weight','Weight','number'],['denoiseStrength','Denoising Strength','number'],['confidence','Confidence','number'],['positive','Positive'],['negative','Negative']],'ยังไม่มี Repair'),btn('+ Add Repair','add-advanced','',{kind:'settings.characterRepairs'})));
+      const custom=S.customFields||(S.customFields=[]);
+      main.append(group('Custom Fields',makeLines(custom,'settings.customFields',[['key','Key'],['value','Value']],'ยังไม่มี Custom Field'),btn('+ Add Field','add-advanced','',{kind:'settings.customFields'})));
+      const title=input(a.name+' — Preset','preset-title');title.dataset.adv='preset-title';
+      const chosen=select('preset-select','',[['','เลือก Preset…'],...presets.map(p=>[p.id,`${p.title} (${p.model||'Any'})`])]);chosen.dataset.preset='choose';
+      main.append(group('Presets (ใช้เมื่อสั่งเท่านั้น)',n('p','Preset เป็น Snapshot ใช้กับ Prompt ปัจจุบันเมื่อกด Apply ไม่เปลี่ยนต้นฉบับที่เคยบันทึกไว้','hint'),field('ชื่อ Preset ใหม่',title),btn('Save current as Preset','preset-save'),field('Preset ที่บันทึกไว้',chosen),h('div',{class:'btnrow'},btn('Apply Selected','preset-apply','primary'),btn('Delete Selected','preset-remove','danger'))));
+      main.append(h('div',{class:'editor-actions'},btn('Cancel','settings-cancel'),btn('Save Settings','settings-save','primary')));
+      return main;
+    }
+    const numkeys=new Set(['samplingSteps','cfgScale','width','height','scale','weight','denoiseStrength','confidence']);
+    function validatedAdvanced(){const a=advanced,copy=structuredClone(a.draft);
+      const convert=(o)=>{for(const [key,v] of Object.entries(o)){if(v&&typeof v==='object')convert(v);else if(numkeys.has(key)){if(v===''||v==null)o[key]=null;else {const val=Number(v);if(!Number.isFinite(val))throw Error(key+' ไม่ใช่ตัวเลข');o[key]=val;}}else if(v===null){} }};
+      convert(copy);
+      B.validateConfig(copy.settings,copy.loras);
+      return copy;
+    }
+    async function saveSettings(){const a=advanced;if(!a)return;const patch=validatedAdvanced();if(!await modal({title:'ยืนยัน Save Settings',body:'บันทึกค่า Settings และ LoRA ไปยัง Prompt นี้? Queue/Preset เดิมจะไม่เปลี่ยน',confirm:'Confirm Save'}))return;
+      if(a.timer){clearTimeout(a.timer);a.timer=null;}await a.writeQueue;
+      await db.saveDraft('prompts',a.id,'settings',JSON.stringify(a.draft),a.revision);
+      await db.update('prompts',a.id,patch,a.revision);await db.clearDraft('prompts',a.id,'settings');
+      advanced=null;await go('#prompt/'+a.id);notify('บันทึก Settings สำเร็จ');
+    }
+    async function changeRepeat(action,kind,index){if(!advanced)return;const data=kind.split('.').reduce((obj,key)=>obj[key],advanced.draft);
+      if(action==='add-advanced'){if(data.length>=50)throw Error('จำนวนรายการเต็ม');const obj=kind==='loras'?{name:'',weight:null,triggerWords:''}:kind==='settings.characterRepairs'?{area:'face',loraName:'',weight:null,denoiseStrength:null,confidence:null,positive:'',negative:''}:{key:'',value:''};data.push(obj);}
+      else data.splice(Number(index),1);stashSettings();await render();
+    }
+    async function presetAction(action){if(!advanced)return;const a=advanced;
+      if(action==='preset-save'){
+        const el=document.querySelector('[data-adv="preset-title"]');const title=el?.value?.trim();if(!title)throw Error('กรอกชื่อ Preset');
+        const patch=validatedAdvanced();
+        if(!await modal({title:'Save Preset?',body:'บันทึก Snapshot ของ Settings ปัจจุบันแยกจาก Prompt ไม่แก้ Prompt เดิม',confirm:'Save Preset'}))return;
+        const rec=await db.get('prompts',a.id);await B.addPreset(title,{...rec,...patch});state.presets=await B.allPresets();await render();notify('บันทึก Preset แล้ว');return;
+      }
+      const id=document.querySelector('[data-preset="choose"]')?.value;if(!id)throw Error('เลือก Preset ก่อน');const p=(state.presets||[]).find(p=>p.id===id);if(!p)throw Error('หา Preset ไม่เจอ');
+      if(action==='preset-remove'){
+        if(await modal({title:'ลบ Preset?',body:p.title+' (ไม่แก้ค่าใน Prompt เดิม)',confirm:'Delete',danger:true})){await B.removePreset(id,p.revision);state.presets=await B.allPresets();await render();notify('ลบ Preset แล้ว');}return;
+      }
+      if(!await modal({title:'Apply Preset?',body:'แทนค่า Settings ในฟอร์มด้วย Snapshot ของ Preset นี้ (ยังไม่ Commit จนกด Save Settings)',confirm:'Apply'}))return;
+      a.draft={settings:structuredClone(p.settings),loras:structuredClone(p.loras)};stashSettings();await render();notify('นำ Preset เข้าฟอร์มแล้ว กด Save Settings เมื่อตรวจครบ');
+    }
+    function queuePage(){const main=container(h('div',{class:'headrow'},back(),n('span','QUEUE · SNAPSHOTS','overline')),n('h1','Prompt Queue'),n('p','คิวเก็บสำเนา Snapshot ของ Prompt ณ วันที่เพิ่ม แก้ต้นฉบับจะไม่เปลี่ยนคิว','hint'));
+      main.append(h('div',{class:'btnrow'},btn('Copy & Next','queue-next','primary'),btn('Clear Queue','queue-clear','danger')));
+      if(!queueRows.length){main.append(h('div',{class:'empty'},n('strong','Queue ว่าง'),n('p','กลับ Library แล้วกด + Queue ใต้ Prompt')));return main;}
+      let ix=state.queueCursor||0;if(ix>=queueRows.length)ix=state.queueCursor=queueRows.length-1;
+      queueRows.forEach((item,i)=>{
+        const r=item.snapshot,selected=i===ix;
+        const position=h('select',{class:'queue-position-select',dataset:{queuePosition:item.id}});
+        position.setAttribute('aria-label',`ย้าย ${r.title} ไปตำแหน่ง`);
+        queueRows.forEach((_,at)=>{
+          const option=h('option',{text:`ตำแหน่ง ${at+1}`});option.value=String(at);
+          position.append(option);
+        });
+        position.value=String(i);position.disabled=queueRows.length<2;
+        const article=h('article',{class:'record queue-card '+(selected?'selected':'')},
+          h('div',{class:'space'},n('strong',`${i+1}. ${r.title}`,'record-title'),n('span',[selected?'CURRENT':null,item.completedAt?'DONE':item.copiedAt?'COPIED':'PENDING'].filter(Boolean).join(' · '),'pill')),
+          h('div',{class:'mini queue-meta'},n('span',r.model||r.platform||''),h('span',{dataset:{queueKey:item.id},class:'queue-key',text:`รายการ #${item.id.slice(-6)}`})),
+          n('div',r.positive||r.negative||'','fulltext'),
+          n('p',item.sourceRevision===state.queueVersions?.[item.originalPromptId]?'Snapshot เท่ากับต้นฉบับ':state.queueVersions?.[item.originalPromptId]===undefined?'ต้นฉบับไม่มีแล้ว — Snapshot ยังอยู่':'ต้นฉบับเปลี่ยนแล้ว — Snapshot เก่ายังอยู่','mini'),
+          h('div',{class:'queue-position-row'},n('span','ย้ายไปลำดับ','mini'),position),
+          h('div',{class:'btnrow'},btn('Select','queue-select','chip',{id:item.id}),btn('Copy Positive','queue-copy','chip',{id:item.id}),btn(item.completedAt?'Undo Done':'Mark Done','queue-done','chip',{id:item.id}),btn('Refresh Snapshot','queue-refresh','chip',{id:item.id}),btn('Remove','queue-remove','chip danger',{id:item.id})));
+        main.append(article);
+      });return main;
+    }
+    async function queueAction(action,id){
+      const items=await B.allQueue(),i=items.findIndex(v=>v.id===id),item=items[i],selected=items[Math.min(state.queueCursor||0,items.length-1)];
+      if(action==='add-queue'){await B.enqueue(id);notify('เพิ่ม Snapshot เข้า Queue แล้ว');return;}
+      if(action==='queue-clear'){if(!items.length)return;if(!await modal({title:'Clear Queue?',body:'ลบ Queue Snapshots ทั้งหมด (ไม่ลบ Prompts ต้นฉบับ)',confirm:'Clear',danger:true}))return;await B.clearQueue();state.queueCursor=0;await render();notify('Queue ว่างแล้ว');return;}
+      if(action==='queue-next'){
+        if(!selected)return;
+        // Clipboard failure must neither advance cursor nor write copiedAt.
+        if(!await copy(selected.snapshot.positive))return;
+        await B.editQueue(selected.id,{copiedAt:new Date().toISOString()},selected.revision);
+        state.queueCursor=Math.min((state.queueCursor||0)+1,items.length-1);await render();return;
+      }
+      if(!item)return;
+      if(action==='queue-select'){state.queueCursor=i;await render();return;}
+      if(action==='queue-copy')return copy(item.snapshot.positive);
+      if(action==='queue-done'){await B.editQueue(id,{completedAt:item.completedAt?null:new Date().toISOString()},item.revision);await render();return;}
+      if(action==='queue-remove'){if(await modal({title:'Remove from Queue?',body:item.snapshot.title,confirm:'Remove',danger:true})){await B.deleteQueue(id);state.queueCursor=Math.max(0,Math.min(state.queueCursor||0,items.length-2));await render();}return;}
+      if(action==='queue-refresh'){if(!await modal({title:'Replace Snapshot?',body:'แทน Snapshot เก่าด้วย Prompt ล่าสุดอย่างชัดเจน (ย้อน Snapshot เก่าจากคิวไม่ได้)',confirm:'Refresh Snapshot',danger:true}))return;await B.refreshSnapshot(id,item.revision);await render();notify('Snapshot อัปเดตแล้ว');}
+    }
+    async function loadQueue(){queueRows=await B.allQueue();const rows=await db.all('prompts');state.queueVersions=Object.fromEntries(rows.map(r=>[r.id,r.revision]));}
+    async function changeQueuePosition(el){
+      const id=el.dataset.queuePosition,target=Number(el.value);
+      const before=queueRows.findIndex(row=>row.id===id);
+      if(before<0||!Number.isSafeInteger(target)||target<0||target>=queueRows.length){await render();throw Error('ตำแหน่ง Queue ไม่ถูกต้อง');}
+      if(before===target)return;
+      const currentId=queueRows[state.queueCursor||0]?.id;
+      try{
+        await B.moveQueueTo(id,target,queueRows.map(row=>row.id));
+        const updated=await B.allQueue();
+        state.queueCursor=Math.max(0,updated.findIndex(row=>row.id===currentId));
+        await render();
+        notify(`ย้ายไปตำแหน่ง ${target+1} / ${updated.length} แล้ว`);
+      }catch(e){await render();throw e;}
+    }
+    function backupPage(){const main=container(h('div',{class:'headrow'},back(),n('span','BACKUP / IMPORT','overline')),n('h1','Backup & Restore'),
+      n('p',`Environment: ${APP.config.env} · v${APP.config.version} · ${APP.config.buildId} · DB schema ${db.SCHEMA_VERSION}`,'hint'),
+      n('p','ข้อมูลอยู่ใน Browser นี้เท่านั้น ควร Export JSON เก็บไว้นอกเบราว์เซอร์ก่อนใช้ Replace','hint'),btn('Export Full JSON','backup-export','primary'));
+      const file=h('input',{class:'input',type:'file'});file.accept='.json,application/json';file.dataset.import='file';
+      const area=h('textarea',{class:'editorbox',rows:7});area.dataset.import='paste';area.placeholder='วาง prompt-manager.seed / backup JSON หรือ Paste Grammar ตามตัวอย่าง';area.value=state.backupInput||'';
+      const section=h('div',{class:'settings-group pad'},n('h2','Import / Restore'),
+        n('p','เลือกไฟล์ JSON แล้วดู Preview ด้านล่างนี้ก่อนเลือกวิธีนำเข้า — ยังไม่แก้ข้อมูลทันที','hint'));
+      section.append(field('เลือก JSON ไม่เกิน 8 MB',file));
+      if(importMessage){
+        const feedback=h('div',{class:`import-feedback${importMessage.error?' error':''}`,dataset:{importFeedback:'true'},role:importMessage.error?'alert':'status'},n('strong',importMessage.text));
+        section.append(feedback);
+      }
+      if(plan){
+        const counts=B.summary(plan);
+        const summary=h('div',{class:'import-preview',dataset:{importPreview:'true'}},
+          n('h2',`ตรวจไฟล์ผ่าน — Preview (${plan.kind})`),
+          ...(importFileName?[n('p',`ไฟล์: ${importFileName}`,'hint')]:[]),
+          ...Object.entries(counts).map(([k,v])=>info(k,v)),
+          n('p','เลือกวิธีนำเข้า: เพิ่มต่อท้าย = เก็บข้อมูลเดิม / แทนที่ทั้งหมด = ลบข้อมูลเดิมแล้วใช้ไฟล์นี้','import-explain'),
+          ...(plan.kind==='backup'?[n('p','ถ้า ID ในไฟล์ซ้ำกับข้อมูลเดิม การเพิ่มต่อท้ายจะยกเลิกโดยไม่เขียนข้อมูล','hint')]:[]),
+          h('div',{class:'btnrow'},btn('เพิ่มต่อท้าย (Merge)','import-merge','primary'),btn('แทนที่ทั้งหมด (Replace)','import-replace','danger'),btn('ยกเลิก','import-cancel')));
+        section.append(summary);
+      }
+      section.append(field('หรือวาง JSON / Paste ที่มีตัวคั่น',area),h('div',{class:'btnrow'},btn('Preview JSON','import-preview'),btn('Preview Paste','import-paste')));
+      main.append(section);
+      const grammar='=== PROMPT ===\nTitle: Prompt example\nPositive:\na gentle smile\nNegative:\nlow quality\n=== END ===';
+      main.append(h('details',{class:'settings-group'},h('summary',{text:'Paste Grammar ตัวอย่าง (ต้องตรงรูปแบบ)'}),h('pre',{class:'fulltext',text:grammar})));
+      return main;
+    }
+    function focusImportPreview(){
+      // After render, the preview is placed next to the file picker; do not hide actions below the paste textarea.
+      document.querySelector('[data-import-preview]')?.scrollIntoView({block:'start',behavior:'auto'});
+    }
+    function downloadBackup(obj){const blob=new Blob([JSON.stringify(obj,null,2)],{type:'application/json;charset=utf-8'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=`prompt-manager-${APP.config.env.toLowerCase()}-v${APP.config.version}-${new Date().toISOString().slice(0,10)}.json`;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),60000);}
+    async function preview(raw,mode,source='text'){
+      if(source==='text'){state.backupInput=raw;importFileName=null;}
+      else{state.backupInput='';importFileName=source;}
+      plan=mode==='paste'?B.parsePaste(raw):B.parseImport(raw);
+      importMessage={text:source==='text'?'ตรวจข้อมูลสำเร็จ — ยังไม่ได้ Import':'เลือกไฟล์แล้ว ตรวจข้อมูลสำเร็จ — ยังไม่ได้ Import',error:false};
+      await render();
+      focusImportPreview();
+    }
+    async function importAction(action){
+      if(action==='backup-export'){downloadBackup(await B.exportBackup());notify('เตรียมไฟล์ Backup JSON แล้ว ตรวจว่า Browser ดาวน์โหลดสำเร็จ');return;}
+      if(action==='import-preview'||action==='import-paste'){
+        const raw=document.querySelector('[data-import="paste"]')?.value||'';
+        try{await preview(raw,action==='import-paste'?'paste':'json');}
+        catch(e){plan=null;importMessage={text:'Preview ไม่ผ่าน: '+e.message,error:true};state.backupInput=raw;await render();}
+        return;
+      }
+      if(action==='import-cancel'){plan=null;importMessage=null;importFileName=null;state.backupInput='';await render();return;}
+      if(action==='import-merge'||action==='import-replace'){
+        if(!plan)throw Error('ไม่มี Import Preview');const mode=action==='import-merge'?'merge':'replace';
+        if(mode==='replace'){
+          const original=await B.exportBackup();
+          if(!await modal({title:'Replace All — ข้อมูลเดิมจะถูกลบ!',body:`คำเตือน: ${APP.config.env} Storage จะถูกแทนทั้งชุด (${original.stores.prompts.length} Prompts เดิม)\nต้อง Export Backup เดิมไว้ก่อน จากนั้นจึงดำเนินการต่อ`,confirm:'ขั้นถัดไป',danger:true}))return;
+          if(!await modal({title:'ยืนยัน Replace อีกครั้ง',body:'กด Replace เท่านั้นหากมีไฟล์ Backup เดิมเก็บไว้อย่างปลอดภัยแล้ว การกดนี้จะเขียนทับข้อมูลทั้งหมด',confirm:'Replace All',danger:true}))return;
+        }else if(!await modal({title:'Import Merge?',body:'เพิ่มรายการตาม Preview แบบ Atomic ถ้า ID ชนจะยกเลิกทั้งชุด',confirm:'Import'}))return;
+        try{
+          const result=await B.applyImport(plan,mode);
+          plan=null;state.backupInput='';importFileName=null;
+          importMessage={text:`${mode==='merge'?'เพิ่มต่อท้าย':'แทนที่ทั้งหมด'}สำเร็จ: ${result.imported.prompts} Prompts, ${result.imported.snippets} Snippets`,error:false};
+          await render();notify(importMessage.text);
+        }catch(e){importMessage={text:'Import ไม่สำเร็จ (ไม่มีการเขียนบางส่วน): '+e.message,error:true};await render();focusImportPreview();}
+        return;
+      }
+    }
+    // Some Android WebViews/browsers do not expose Blob.text reliably.
+    function readFileText(file){
+      if(typeof file.text==='function')return file.text().catch(()=>readWithFileReader(file));
+      return readWithFileReader(file);
+    }
+    function readWithFileReader(file){
+      return new Promise((resolve,reject)=>{
+        if(typeof FileReader!=='function'){reject(Error('เบราว์เซอร์นี้ไม่รองรับการอ่านไฟล์'));return;}
+        const reader=new FileReader();
+        reader.onload=()=>resolve(String(reader.result??''));
+        reader.onerror=()=>reject(reader.error||Error('อ่านไฟล์ไม่สำเร็จ'));
+        reader.onabort=()=>reject(Error('ยกเลิกการอ่านไฟล์'));
+        try{reader.readAsText(file,'UTF-8');}catch(e){reject(e);}
+      });
+    }
+    async function fileChanged(el){
+      const file=el.files?.[0];if(!file)return;
+      const seq=++readSeq;plan=null;importFileName=file.name;
+      if(file.size>8*1024*1024){
+        importMessage={text:'ไฟล์เกิน 8 MB — ไม่ได้ Import',error:true};el.value='';await render();return;
+      }
+      importMessage={text:'กำลังตรวจไฟล์ '+file.name,error:false};
+      try{
+        const raw=await readFileText(file);if(seq!==readSeq)return;
+        await preview(raw,'json',file.name);
+      }catch(e){
+        if(seq!==readSeq)return;
+        plan=null;importMessage={text:'ไฟล์ไม่ผ่าน Validation: '+e.message,error:true};
+        await render();
+        document.querySelector('[data-import-feedback]')?.scrollIntoView({block:'center',behavior:'auto'});
+      }
+    }
+    async function action(button){const {action,id,kind,index}=button.dataset;
+      if(action==='clear-filters'){clearFilters();return true;}
+      if(action==='toggle-fav'){const r=await db.get('prompts',id);await db.update('prompts',id,{favorite:!r.favorite},r.revision);await render();return true;}
+      if(action==='add-queue'||action.startsWith('queue-')){await queueAction(action,id);return true;}
+      if(action==='meta-save'){await saveMeta();return true;}
+      if(action==='meta-cancel'){await go(`#prompt/${state.selectedId}`);return true;}
+      if(action==='settings-save'){await saveSettings();return true;}
+      if(action==='settings-cancel'){await go(`#prompt/${advanced.id}`);return true;}
+      if(action==='add-advanced'||action==='remove-advanced'){await changeRepeat(action,kind,index);return true;}
+      if(action.startsWith('preset-')){await presetAction(action);return true;}
+      if(action.startsWith('import-')||action==='backup-export'){await importAction(action);return true;}
+      return false;
+    }
+    function handleInput(el){if(el.dataset.filter){updateFilter(el.dataset.filter,el.type==='checkbox'?el.checked:el.value);return true;}
+      if(el.dataset.adv&&!['preset-title','preset-select','unused'].includes(el.dataset.adv)){setAdvanced(el.dataset.adv,el.type==='checkbox'?el.checked:el.value);return true;}
+      return false;
+    }
+    return {filterUI,updateFilter,handleInput,changeQueuePosition,action,metadataPage,startSettings,settingsForm,closeSettings,dirtySettings,loadQueue,queuePage,backupPage,fileChanged,resetImport:()=>{++readSeq;plan=null;state.backupInput='';importMessage=null;importFileName=null;},allPresets:()=>B.allPresets()};
+  };
+})();
+
+</script>
+<script>
+'use strict';
+(() => {
+  const APP=window.PMB, db=APP.db, {html:h}=APP.core;
+  const root=document.getElementById('app');const layer=document.getElementById('dialog-layer');
+  const state={page:'library',selectedId:null,selectedType:null,editing:null,creating:null,saving:false,message:'',fatal:null,records:[],snippets:[],queueCursor:0,presets:[],metaDirty:false,externalChanged:false};
+  let features;
+  let noticeTimer=null;
+  const btn=(label,action,cls='',attrs={})=>h('button',{text:label,class:cls,dataset:{action,...attrs}});
+  const text=(tag,val,cls='')=>h(tag,{text:val??'',class:cls});
+  const block=(...nodes)=>h('div',{class:'block'},...nodes);
+  function notify(msg,bad=false){
+    document.querySelector('.toast')?.remove();if(noticeTimer)clearTimeout(noticeTimer);
+    const el=h('div',{class:`toast ${bad?'error':''}`,text:msg});
+    el.setAttribute('role',bad?'alert':'status');
+    const header=document.querySelector('.header');
+    el.style.top=`${Math.ceil(header?.getBoundingClientRect().bottom||0)+10}px`;
+    document.body.appendChild(el);
+    noticeTimer=setTimeout(()=>{if(el.isConnected)el.remove();},2000);
+  }
+  function modal({title,body,confirm='ยืนยัน',cancel='ยกเลิก',danger=false}){
+    return new Promise(resolve=>{
+      layer.replaceChildren();const shade=h('div',{class:'modal-mask'});
+      const box=h('div',{class:'modal',role:'dialog'});box.setAttribute('aria-modal','true');
+      box.append(text('h2',title),text('p',body));
+      const c=btn(cancel,'modal-cancel'),y=btn(confirm,'modal-ok',danger?'danger':'primary');
+      const finish=value=>{document.removeEventListener('keydown',esc);layer.replaceChildren();resolve(value);};
+      const esc=e=>{if(e.key==='Escape'){e.preventDefault();finish(false);}};
+      c.addEventListener('click',()=>finish(false));y.addEventListener('click',()=>finish(true));
+      shade.addEventListener('click',e=>{if(e.target===shade)finish(false);});
+      box.append(h('div',{class:'modal-actions'},...(cancel==null?[]:[c]),y));shade.append(box);layer.append(shade);document.addEventListener('keydown',esc);(cancel==null?y:c).focus();
+    });
+  }
+  function showHelp(){
+    return modal({
+      title:'วิธีใช้ Prompt Manager',
+      body:[
+        '1. Library — เก็บ Prompt; กด เปิดดู เพื่ออ่าน Positive / Negative และ Notes',
+        '2. Edit — กด แก้ไข ใน Block → Save → Confirm จึงบันทึกจริง',
+        '3. Generation Settings — เก็บค่าของภาพ เช่น Steps, LoRA, Repair (ไม่ได้เจนภาพในแอป)',
+        '   Preset อยู่ท้ายหน้า Settings: Save current as Preset → เลือก → Apply; ยังไม่แก้ Prompt จนกด Save Settings',
+        '4. Queue — กด + Queue เพื่อเก็บสำเนา; Copy & Next คือคัดลอก ไม่ได้หมายถึงเจนเสร็จ',
+        '5. Backup / Import — ใช้ Export Full JSON เก็บสำรองก่อนเปลี่ยนเบราว์เซอร์หรือ Restore',
+        'ข้อมูลเก็บอยู่ในเบราว์เซอร์นี้: TEST และ PROD แยกกัน อย่าลบข้อมูลเว็บไซต์ก่อน Backup'
+      ].join('\n\n'),
+      confirm:'ปิด Help',cancel:null
+    });
+  }
+  function manualCopy(value){
+    layer.replaceChildren();const shade=h('div',{class:'modal-mask'}),m=h('div',{class:'modal'});
+    m.append(text('h2','คัดลอกอัตโนมัติไม่ได้'),text('p','เบราว์เซอร์ไม่อนุญาตให้เขียน Clipboard เลือกข้อความด้านล่างแล้วคัดลอกเอง ระบบยังไม่ถือว่าคัดลอกสำเร็จ'));
+    const ta=h('textarea',{class:'editorbox',value,rows:7});ta.readOnly=true;
+    const close=btn('ปิด','close');close.addEventListener('click',()=>layer.replaceChildren());
+    const select=btn('เลือกข้อความทั้งหมด','select','primary');select.addEventListener('click',()=>{ta.focus();ta.select();});
+    m.append(ta,h('div',{class:'modal-actions'},close,select));shade.append(m);layer.append(shade);
+  }
+  async function copy(value){
+    if(!value){notify('Block นี้ว่าง ไม่มีข้อความให้คัดลอก',true);return false;}
+    try{
+      if(!navigator.clipboard?.writeText)throw Error('Clipboard API unavailable');
+      await navigator.clipboard.writeText(value);notify('คัดลอกสำเร็จ');return true;
+    }catch{manualCopy(value);return false;}
+  }
+  function setRoute(path,replace=false){
+    if(replace)history.replaceState({pmb:true},'',path);else history.pushState({pmb:true},'',path);
+  }
+  function route(){
+    const parts=decodeURIComponent(location.hash.slice(1)).split('/');
+    if(parts[0]==='prompt'||parts[0]==='snippet')return {page:'detail',type:parts[0]==='prompt'?'prompts':'snippets',id:parts[1]};
+    if(parts[0]==='edit'&&parts.length===4)return {page:'editor',type:parts[1],id:parts[2],field:parts[3]};
+    if(parts[0]==='new-prompt')return {page:'createPrompt'};
+    if(parts[0]==='new-snippet')return {page:'createSnippet',parentId:parts[1]||null};
+    if(parts[0]==='trash')return {page:'trash'};
+    if(parts[0]==='queue')return {page:'queue'};
+    if(parts[0]==='backup')return {page:'backup'};
+    if(parts[0]==='settings' && parts[1])return {page:'settings',id:parts[1]};
+    if(parts[0]==='metadata' && parts[1])return {page:'metadata',id:parts[1]};
+    return {page:'library'};
+  }
+  function editorDirty(){return !!state.editing && state.editing.value!==state.editing.original;}
+  function creationDirty(){return !!state.creating && Object.entries(state.creating.values).some(([k,v]) => v !== (k==='language'?'text':''));}
+  async function stopEditing({discard=true}={}){
+    const ed=state.editing;if(!ed)return true;
+    if(ed.timer)clearTimeout(ed.timer);
+    try{await ed.writeQueue;}catch{};
+    if(discard)try{await db.clearDraft(ed.type,ed.id,ed.field);}catch(e){notify('ล้าง Draft ไม่สำเร็จ: '+e.message,true);return false;}
+    state.editing=null;return true;
+  }
+  function makeDraftWrite(ed){
+    if(ed.timer)clearTimeout(ed.timer);
+    ed.timer=setTimeout(()=>{
+      ed.writeQueue=ed.writeQueue.then(()=>db.saveDraft(ed.type,ed.id,ed.field,ed.value,ed.revision));
+      ed.writeQueue.catch(e=>notify('เก็บ Draft ไม่สำเร็จ: '+e.message,true));
+    },300);
+  }
+  async function showRoute({pop=false}={}){
+    const r=route();
+    if(pop&&state.page==='settings'&&features && r.page!=='settings'){
+      if(!await features.closeSettings()){setRoute(`#settings/${state.selectedId}`);return;}
+    }
+    if(pop&&state.page==='metadata'&&state.metaDirty&&r.page!=='metadata'){
+      if(!await modal({title:'ทิ้ง Metadata ที่แก้ไว้?',body:'ยังไม่ได้ Save',confirm:'ทิ้ง',danger:true})){setRoute(`#metadata/${state.selectedId}`);return;}
+      state.metaDirty=false;
+    }
+    if(state.creating && creationDirty()){
+      const ok=await modal({title:'ทิ้งรายการที่กำลังสร้าง?',body:'ข้อมูลที่กรอกจะหายไป เพราะยังไม่ได้บันทึก',confirm:'ทิ้งข้อมูล',danger:true});
+      if(!ok){if(pop)setRoute(state.page==='createPrompt'?'#new-prompt':`#new-snippet/${state.creating.parentId||''}`);return;}
+    }
+    if(state.editing){
+      if(editorDirty()){
+        const ok=await modal({title:'ทิ้งการแก้ไข?',body:'ข้อความยังไม่ได้ Save การออกจะทิ้ง Draft ของ block นี้',confirm:'ทิ้งการแก้ไข',danger:true});
+        if(!ok){if(pop)setRoute(`#edit/${state.editing.type}/${state.editing.id}/${state.editing.field}`);return;}
+      }
+      if(!await stopEditing())return;
+    }
+    state.page=r.page;state.selectedType=r.type||null;state.selectedId=r.id||null;
+    state.externalChanged=false;
+    if(r.page==='editor')await setupEditor(r);
+    if(r.page==='settings' && features){await features.startSettings(r.id);state.presets=await features.allPresets();}
+    if(r.page==='metadata')state.metaDirty=false;
+    if(r.page==='createPrompt'||r.page==='createSnippet')state.creating={page:r.page,parentId:r.parentId||null,values:{title:'',positive:'',negative:'',notes:'',platform:'',model:'',language:'text',content:''}};
+    else state.creating=null;
+    await render();
+  }
+  async function go(url){
+    if(state.page==='settings'&&features&&url!==`#settings/${state.selectedId}`){if(!await features.closeSettings())return;}
+    if(state.page==='metadata'&&state.metaDirty&&url!==`#metadata/${state.selectedId}`){
+      if(!await modal({title:'ทิ้ง Metadata ที่แก้ไว้?',body:'ยังไม่ได้ Save',confirm:'ทิ้งข้อมูล',danger:true}))return;
+      state.metaDirty=false;
+    }
+    if(state.creating && creationDirty()){
+      const ok=await modal({title:'ทิ้งรายการที่กำลังสร้าง?',body:'รายการนี้ยังไม่ได้บันทึก',confirm:'ทิ้งข้อมูล',danger:true});
+      if(!ok)return;
+      state.creating=null;
+    }
+    if(state.editing&&editorDirty()){
+      const ok=await modal({title:'ทิ้งการแก้ไข?',body:'คุณยังไม่ได้ Save ข้อความที่แก้ไข',confirm:'ทิ้ง Draft',danger:true});if(!ok)return;
+    }
+    if(state.editing&&!await stopEditing())return;
+    setRoute(url);await showRoute();
+  }
+  async function setupEditor(r){
+    const rec=await db.get(r.type,r.id);
+    const fields=r.type==='prompts'?['title','positive','negative','notes','platform','model']:['title','language','content'];
+    if(!rec||rec.deletedAt||!fields.includes(r.field)){state.page='library';setRoute('#library',true);notify('รายการหรือ Block ไม่ถูกต้อง',true);return;}
+    let value=rec[r.field];const draft=await db.getDraft(r.type,r.id,r.field);
+    if(draft&&draft.text!==value){
+      if(await modal({title:'พบ Draft ที่ยังไม่บันทึก',body:`มี Draft จากครั้งก่อน\n${draft.baseRevision!==rec.revision?'รายการที่บันทึกไว้มี revision ใหม่กว่า Draft นี้ โปรดตรวจข้อความก่อน Save เพราะจะเขียนทับเนื้อหาปัจจุบัน\n':''}ต้องการกู้ข้อความกลับมาแก้ต่อหรือไม่? (จะยังไม่บันทึกอัตโนมัติ)`,confirm:'กู้ Draft',cancel:'เริ่มจากที่บันทึกไว้'})) value=draft.text;
+      else await db.clearDraft(r.type,r.id,r.field);
+    }
+    state.editing={type:r.type,id:r.id,field:r.field,original:rec[r.field],value,revision:rec.revision,writeQueue:Promise.resolve(),timer:null};
+  }
+  async function refreshData(){
+    const [prompts,snippets]=await Promise.all([db.all('prompts',{trash:state.page==='trash'}),db.all('snippets',{trash:state.page==='trash'})]);
+    state.records=prompts;state.snippets=snippets;
+  }
+  function renderHeader(){
+    const head=h('header',{class:'header'},h('div',{class:'header-in'},
+      h('div',{},text('div','Prompt Manager','wordmark'),h('div',{class:'subline'},text('span',APP.config.env,'env '+(APP.config.env==='PROD'?'prod':'')),text('span',`v${APP.config.version} · ${APP.config.buildId}`))),
+      btn('Library','home','ghost')));
+    head.querySelector('button').addEventListener('click',()=>go('#library'));
+    return head;
+  }
+  const container=(...nodes)=>h('main',{class:'wrap'},...nodes);
+  const back=(label='กลับ')=>btn('← '+label,'back','ghost back');
+  function card(r,type){
+    const snippet=type==='snippets';const title=text('div',r.title,'record-title');
+    const meta=h('div',{class:'btnrow'},text('span',snippet?'SNIPPET · '+(r.language||'text'):r.model||r.platform||'Prompt','pill'),text('span',`rev ${r.revision}`,'pill'));
+    const line=text('div',snippet?r.content:r.positive||r.negative,'preview');
+    const buttons=h('div',{class:'btnrow'},btn('เปิดดู','open','primary',{type,id:r.id}),btn(snippet?'Copy Code':'Copy Positive','copy','',{type,id:r.id}),btn('เพิ่มเติม','more','',{type,id:r.id}));
+    return h('article',{class:'record'},title,meta,line,buttons);
+  }
+  function library(){
+    const helpButton=btn('?','help','help-icon');helpButton.setAttribute('aria-label','Help — วิธีใช้แอป');
+    const top=container(h('div',{class:'hero'},text('div','MY WORKSPACE','overline'),
+      h('div',{class:'library-title-row'},text('h1','Prompt Library'),helpButton), 
+      text('p','จัดเก็บ ดู และคัดลอก Prompt ได้ในที่เดียว','muted')),
+      h('div',{class:'btnrow library-actions'},btn('+ New Prompt','new-prompt','primary'),btn('+ New Snippet','new-snippet'),btn('Backup / Import','goto-backup')));
+    if(APP.config.env==='TEST'){
+      top.append(h('div',{class:'panel fixture-panel'},h('div',{class:'space fixture-inner'},h('div',{},text('strong','TEST fixture'),text('div','โหลดตัวอย่างเฉพาะฐาน TEST ที่ยังว่าง','mini')),btn('Load test sample','seed'))));
+    }
+    top.append(features.filterUI());
+    return top;
+  }
+  function detailBlock(rec,type,field,label,copyLabel){
+    const val=rec[field], toolbar=h('div',{class:'space'},text('span',label,'block-title'),h('div',{class:'btnrow'},btn('แก้ไข','edit','',{type,id:rec.id,field}),btn(copyLabel,'copy-field','',{type,id:rec.id,field})));
+    return block(toolbar,text('div',val||'ยังไม่มีข้อมูล',`fulltext ${val?'':'blank'}`));
+  }
+  async function detail(){
+    const type=state.selectedType,rec=await db.get(type,state.selectedId);
+    if(!rec||rec.deletedAt)return container(back(),text('p','ไม่พบรายการนี้ หรือย้ายเข้าถังขยะแล้ว'));
+    const sn=type==='snippets';
+    const top=container(h('div',{class:'headrow'},back(),text('div',sn?'SNIPPET DETAIL':'PROMPT DETAIL','overline')),
+      h('div',{class:'space'},text('h1',rec.title),btn('แก้ชื่อ','edit','',{type,id:rec.id,field:'title'})),
+      h('div',{class:'btnrow'},text('span',sn?rec.language:(rec.platform||'—')+' / '+(rec.model||'—'),'pill'),text('span',`rev ${rec.revision}`,'pill')));
+    if(sn){
+      top.append(detailBlock(rec,type,'content','Code Snippet','Copy Code'));
+      top.append(detailBlock(rec,type,'language','Language','Copy'));
+      if(rec.parentPromptId)top.append(h('p',{class:'hint'},'Linked to Prompt · ',btn('เปิด Prompt','parent','',{id:rec.parentPromptId})));
+    }else{
+      top.append(h('div',{class:'split'},detailBlock(rec,type,'positive','Positive','Copy Positive'),detailBlock(rec,type,'negative','Negative','Copy Negative')));
+      top.append(h('div',{class:'btnrow detail-quick'},btn('Tags / Status / Favorite','goto-meta','',{id:rec.id}),btn('Generation Settings','goto-settings','primary',{id:rec.id}),btn('+ Queue','add-queue','',{id:rec.id})));
+      top.append(h('div',{class:'panel summary'},text('strong','Generation Summary'),text('p',`Steps: ${rec.settings?.samplingSteps??'—'} · Sampler: ${rec.settings?.samplingMethod??'—'} · CFG: ${rec.settings?.cfgScale??'—'}`,'mini'),text('p',`LoRA: ${rec.loras?.length||0} · Repair: ${rec.settings?.characterRepairs?.length||0} · Upscale: ${rec.settings?.upscale?.enabled?'On':'Off'} · Face Restore: ${rec.settings?.faceRestore?.enabled?'On':'Off'}`,'mini'),text('p',`Status: ${rec.status} · Tags: ${(rec.tags||[]).join(', ')||'—'} ${rec.favorite?'★':''}`,'mini')));
+      top.append(h('div',{class:'btnrow',style:''},btn('Copy Combined','copy-combined','',{id:rec.id})));
+      top.append(detailBlock(rec,type,'notes','Notes','Copy Notes'));
+      top.append(h('div',{class:'split'},detailBlock(rec,type,'platform','Platform','Copy'),detailBlock(rec,type,'model','Checkpoint / Model','Copy')));
+      top.append(h('div',{class:'section-head'},text('h2','Linked Snippets'),btn('+ Snippet','new-linked','',{id:rec.id})));
+      const related=(await db.all('snippets')).filter(s=>s.parentPromptId===rec.id);
+      if(related.length)top.append(h('div',{class:'stack'},...related.map(s=>card(s,'snippets'))));
+      else top.append(text('p','ยังไม่มี Snippet ที่แนบกับ Prompt นี้','hint'));
+    }
+    top.append(h('div',{class:'section-head'},text('h2','การจัดการ'),h('div',{class:'btnrow'},btn('Duplicate','duplicate','',{type,id:rec.id}),btn('ย้ายไปถังขยะ','delete','danger',{type,id:rec.id}))));
+    return top;
+  }
+  function editor(){
+    const e=state.editing;if(!e)return container(back(),text('p','ไม่พบข้อมูล Editor'));
+    const labels={title:'Title',positive:'Positive Prompt',negative:'Negative Prompt',notes:'Notes',platform:'Platform',model:'Checkpoint / Model',language:'Language',content:'Code Snippet'};
+    const area=e.field==='title'||e.field==='platform'||e.field==='model'||e.field==='language'?
+      h('input',{class:'input',value:e.value}):h('textarea',{class:'editorbox',value:e.value,rows:12});
+    area.dataset.input='edit';
+    const main=container(h('div',{class:'headrow'},back('ยกเลิก'),text('div','BLOCK EDIT','overline')),
+      text('h1',`แก้ไข ${labels[e.field]}`),text('p','ข้อความจะไม่บันทึกจนกว่าจะกด Save และยืนยัน','hint'),
+      h('div',{class:'field'},h('label',{text:labels[e.field]}),area),
+      h('div',{class:'editor-actions'},btn('Cancel','cancel'),btn('Save','save','primary')));
+    return main;
+  }
+  function createForm(){
+    const isPrompt=state.page==='createPrompt',vals=state.creating.values;
+    const main=container(h('div',{class:'headrow'},back('ยกเลิก'),text('div',isPrompt?'NEW PROMPT':'NEW SNIPPET','overline')),
+      text('h1',isPrompt?'สร้าง Prompt':'สร้าง Snippet'),text('p','กรอกข้อมูล → Save → Confirm แล้วจึงสร้างรายการ','hint'));
+    const field=(key,label,multiline=false,placeholder='')=>{
+      const inp=multiline?h('textarea',{class:'editorbox',rows:key==='positive'?7:4,value:vals[key]}):h('input',{class:'input',value:vals[key]});
+      inp.dataset.create=key;inp.placeholder=placeholder;
+      return h('div',{class:'field'},h('label',{text:label}),inp);
+    };
+    main.append(field('title','Title'));
+    if(isPrompt){
+      main.append(field('positive','Positive',true,'อย่างน้อย Positive หรือ Negative'),field('negative','Negative',true),field('notes','Notes',true),h('div',{class:'formgrid'},field('platform','Platform'),field('model','Checkpoint / Model')));
+    }else{main.append(field('language','Language'),field('content','Code Snippet',true));if(state.creating.parentId)main.append(text('p','Snippet นี้จะผูกกับ Prompt ที่เปิดอยู่','hint'));}
+    main.append(h('div',{class:'editor-actions'},btn('Cancel','cancel'),btn('Save','save-create','primary')));
+    return main;
+  }
+  async function trash(){
+    const main=container(h('div',{class:'headrow'},back(),text('h1','Trash')),
+      text('p','ลบชั่วคราวก่อน สามารถ Restore ได้ การลบถาวรต้องยืนยันอีกครั้ง','hint'));
+    const data=[...state.records.map(r=>({type:'prompts',r})),...state.snippets.map(r=>({type:'snippets',r}))];
+    if(!data.length)main.append(h('div',{class:'empty'},text('strong','ถังขยะว่าง')));
+    for(const {type,r} of data){
+      const linked=type==='prompts'?await db.linkedSnippets(r.id):[];
+      main.append(h('div',{class:'record'},text('div',r.title,'record-title'),text('p',`ลบเมื่อ ${new Date(r.deletedAt).toLocaleString('th-TH')}`,'hint'),
+        ...(linked.length?[text('p',`มี Snippet ผูกอยู่ ${linked.length} รายการ — ลบถาวรจะลบไปพร้อม Prompt`,'linked-warning')]:[]),
+        h('div',{class:'btnrow'},btn('Restore','restore','primary',{type,id:r.id}),btn('ลบถาวร','purge','danger',{type,id:r.id}))));
+    }
+    return main;
+  }
+  function tabs(){
+    if(!['library','trash','queue','backup'].includes(state.page))return null;
+    return h('nav',{class:'bottom-tabs'},btn('Library','tab-library','tab '+(state.page==='library'?'active':'')),btn('Queue','tab-queue','tab '+(state.page==='queue'?'active':'')),btn('Trash','tab-trash','tab '+(state.page==='trash'?'active':'')));
+  }
+  function externalNotice(){
+    const notice=h('div',{class:'external-notice',text:'มีข้อมูลเปลี่ยนจากอีกแท็บ — ถ้ากำลังแก้ไข ให้ตรวจข้อมูลก่อน Save'});
+    notice.setAttribute('role','status');return notice;
+  }
+  async function refreshFromOtherTab(){
+    if(state.fatal)return;
+    const focused=document.activeElement;
+    const enteringFilter=state.page==='library' && focused?.matches?.('input, textarea, select') && !!focused.closest?.('.search-panel');
+    if(state.editing || state.creating || state.page==='settings' || state.page==='metadata' || state.page==='backup' || state.saving || enteringFilter){
+      state.externalChanged=true;
+      if(!root.querySelector('.external-notice'))root.querySelector('.header')?.after(externalNotice());
+      return;
+    }
+    state.externalChanged=false;
+    await render();
+  }
+  async function render(){
+    if(state.fatal){root.replaceChildren(h('div',{class:'storage-error'},text('h2','เปิด Storage ไม่สำเร็จ'),text('p',state.fatal)));return;}
+    if(['library','trash'].includes(state.page))await refreshData();
+    // Queue is always read fresh before painting. Do not reuse stale queueRows after writes.
+    if(state.page==='queue')await features.loadQueue();
+    let body;
+    if(state.page==='library')body=library();
+    else if(state.page==='trash')body=await trash();
+    else if(state.page==='queue')body=features.queuePage();
+    else if(state.page==='backup')body=features.backupPage();
+    else if(state.page==='settings')body=features.settingsForm();
+    else if(state.page==='metadata'){const p=await db.get('prompts',state.selectedId);body=p?features.metadataPage(p):container(back(),text('p','Prompt not found'));}
+    else if(state.page==='detail')body=await detail();
+    else if(state.page==='editor')body=editor();
+    else if(state.page==='createPrompt'||state.page==='createSnippet')body=createForm();
+    else body=library();
+    const navigation=tabs();
+    root.replaceChildren(renderHeader(),...(state.externalChanged?[externalNotice()]:[]),body,...(navigation?[navigation]:[]));
+  }
+  async function doSave(){
+    if(state.saving)return;
+    const e=state.editing;if(!e)return;
+    if(e.value===e.original){notify('ไม่มีการเปลี่ยนแปลง');return;}
+    // Flush pending draft before confirmation; failed write blocks commit for safety.
+    if(e.timer){clearTimeout(e.timer);e.timer=null;}
+    try{
+      await e.writeQueue;
+      await db.saveDraft(e.type,e.id,e.field,e.value,e.revision);
+    }catch(ex){notify('เก็บ Draft ไม่สำเร็จ: '+ex.message,true);return;}
+    const ok=await modal({title:'ยืนยันการบันทึก',body:`บันทึกการแก้ไข ${e.field} ใช่หรือไม่?\nการกดยกเลิกจะกลับไปแก้ต่อ โดยยังไม่ Commit`,confirm:'Confirm Save'});
+    if(!ok)return;
+    state.saving=true;
+    try{
+      await db.update(e.type,e.id,{[e.field]:e.value},e.revision);
+      await db.clearDraft(e.type,e.id,e.field);
+      state.editing=null;
+      setRoute(`#${e.type==='prompts'?'prompt':'snippet'}/${e.id}`,true);
+      state.page='detail';state.selectedType=e.type;state.selectedId=e.id;
+      await render();notify('บันทึกแล้ว');
+    }catch(ex){notify(`Save ไม่สำเร็จ (${ex.code||'ERROR'}): ${ex.message}`,true);}
+    finally{state.saving=false;}
+  }
+  async function doCreate(){
+    if(state.saving)return;
+    const c=state.creating;if(!c)return;
+    if(!await modal({title:'ยืนยันการสร้าง',body:`ต้องการบันทึก ${c.page==='createPrompt'?'Prompt':'Snippet'} ใหม่หรือไม่?`,confirm:'Confirm Save'}))return;
+    state.saving=true;
+    try{
+      const type=c.page==='createPrompt'?'prompts':'snippets';
+      const record=await db.create(type,{...c.values,parentPromptId:c.parentId});
+      state.creating=null;setRoute(`#${type==='prompts'?'prompt':'snippet'}/${record.id}`,true);
+      state.page='detail';state.selectedType=type;state.selectedId=record.id;
+      await render();notify('สร้างรายการสำเร็จ');
+    }catch(ex){notify('สร้างไม่สำเร็จ: '+ex.message,true);}finally{state.saving=false;}
+  }
+  async function onAction(button){
+    const {action,type,id,field}=button.dataset;
+    if(action==='help')return showHelp();
+    if(action==='home'||action==='tab-library')return go('#library');
+    if(action==='back'||action==='cancel')return go(state.page==='editor'?`#${state.editing.type==='prompts'?'prompt':'snippet'}/${state.editing.id}`:'#library');
+    if(action==='tab-trash')return go('#trash');
+    if(action==='tab-queue'||action==='goto-queue')return go('#queue');
+    if(action==='goto-backup')return go('#backup');
+    if(action==='goto-settings')return go(`#settings/${id}`);
+    if(action==='goto-meta')return go(`#metadata/${id}`);
+    if(await features.action(button))return;
+    if(action==='new-prompt')return go('#new-prompt');
+    if(action==='new-snippet')return go('#new-snippet');
+    if(action==='new-linked')return go(`#new-snippet/${id}`);
+    if(action==='open')return go(`#${type==='prompts'?'prompt':'snippet'}/${id}`);
+    if(action==='parent')return go(`#prompt/${id}`);
+    if(action==='edit')return go(`#edit/${type}/${id}/${field}`);
+    if(action==='save')return doSave();
+    if(action==='save-create')return doCreate();
+    if(action==='copy'||action==='copy-field'||action==='copy-combined'){
+      const t=type||'prompts',r=await db.get(t,id);if(!r){notify('ไม่พบรายการ',true);return;}
+      let value=action==='copy-combined'?[r.positive&&`Positive:\n${r.positive}`,r.negative&&`Negative:\n${r.negative}`].filter(Boolean).join('\n\n'):action==='copy-field'?r[field]:t==='prompts'?r.positive:r.content;
+      return copy(value);
+    }
+    if(action==='seed'){
+      if(!await modal({title:'โหลด TEST fixture',body:'เพิ่มตัวอย่าง 3 Prompts, 2 Snippets และ 1 Preset ลงในฐาน TEST ที่ว่างเท่านั้น',confirm:'โหลดตัวอย่าง'}))return;
+      try{const stats=await db.loadTestSample(window.PMB_TEST_SEED);await render();notify(`โหลดสำเร็จ: ${stats.prompts} Prompts / ${stats.snippets} Snippets / ${stats.presets} Preset`);}catch(ex){notify('Seed failed: '+ex.message,true);}return;
+    }
+    if(['more','duplicate','delete','restore','purge'].includes(action)){
+      if(action==='more'){
+        const r=await db.get(type,id);if(!r)return;
+        // Reveal actions without accidental destructive click.
+        if(await modal({title:r.title,body:'Duplicate รายการนี้ หรือ Cancel เพื่อกลับ (การลบทำจากหน้ารายละเอียด)',confirm:'Duplicate'}))return doDuplicate(type,r);
+        return;
+      }
+      const r=await db.get(type,id);if(!r)return;
+      if(action==='duplicate')return doDuplicate(type,r);
+      const linked=action==='purge'&&type==='prompts'?await db.linkedSnippets(id):[];
+      const msgs={delete:['ย้ายไปถังขยะ?',`รายการ “${r.title}” ยัง Restore ได้`,'ย้ายไป Trash'],restore:['กู้คืนรายการ?',r.title,'Restore'],purge:['ลบอย่างถาวร?',`“${r.title}” จะกู้คืนไม่ได้`,'ลบถาวร']};
+      const [title,defaultBody,defaultConfirm]=msgs[action];
+      const body=linked.length?`“${r.title}” มี Snippet ผูกอยู่ ${linked.length} รายการ (รวมรายการที่ไม่อยู่ใน Trash)\nลบถาวรจะลบ Prompt และ Snippet ทั้งหมดพร้อมกัน กู้คืนไม่ได้`:defaultBody;
+      const confirm=linked.length?`ลบพร้อม ${linked.length} Snippet`:defaultConfirm;
+      if(!await modal({title,body,confirm,danger:action!=='restore'}))return;
+      try{
+        const result=action==='purge'?await db.destroy(type,id,r.revision,linked.map(s=>s.id)):await db.toggleDeleted(type,id,r.revision,action==='restore');
+        if(action==='delete'){setRoute('#library',true);state.page='library';}
+        await render();notify(action==='restore'?'Restore สำเร็จ':action==='purge'?`ลบถาวรแล้ว${result.deletedSnippets?' รวม '+result.deletedSnippets+' Snippet':''}`:'ดำเนินการสำเร็จ');
+      }catch(ex){notify(ex.message,true);}return;
+    }
+  }
+  async function doDuplicate(type,r){
+    try{const payload=type==='prompts'?{...r,title:r.title+' (copy)'}:{...r,title:r.title+' (copy)'};
+      const next=await db.create(type,payload);await go(`#${type==='prompts'?'prompt':'snippet'}/${next.id}`);notify('Duplicate สำเร็จ (ไม่ได้คัดลอก Snippet ที่แนบ)');
+    }catch(ex){notify('Duplicate failed: '+ex.message,true);}
+  }
+  root.addEventListener('click',e=>{
+    const button=e.target.closest('button[data-action]');if(!button)return;
+    onAction(button).catch(ex=>notify(ex.message,true));
+  });
+  root.addEventListener('change',e=>{
+    if(e.target.dataset.import==='file')features.fileChanged(e.target).catch(ex=>notify('อ่านไฟล์ไม่ได้: '+ex.message,true));
+    else if(e.target.dataset.queuePosition)features.changeQueuePosition(e.target).catch(ex=>notify('ย้ายคิวไม่สำเร็จ: '+ex.message,true));
+    else if(e.target.dataset.meta)state.metaDirty=true;
+    else features.handleInput(e.target);
+  });
+  root.addEventListener('input',e=>{
+    if(e.target.dataset.meta)state.metaDirty=true;
+    features.handleInput(e.target);
+    if(e.target.dataset.input==='edit'&&state.editing){state.editing.value=e.target.value;makeDraftWrite(state.editing);}
+    else if(e.target.dataset.create&&state.creating)state.creating.values[e.target.dataset.create]=e.target.value;
+  });
+  window.addEventListener('popstate',()=>showRoute({pop:true}).catch(ex=>notify(ex.message,true)));
+  window.addEventListener('beforeunload',e=>{if(editorDirty()||creationDirty()||features.dirtySettings()||state.metaDirty){e.preventDefault();e.returnValue='';}});
+  APP.onVersionBlocked=()=>{
+    state.fatal='ฐานข้อมูลมีเวอร์ชันใหม่จากอีกแท็บ ระบบหยุดเขียนข้อมูลเพื่อความปลอดภัย โปรดปิดแท็บเก่าแล้วเปิดแอปเวอร์ชันล่าสุด';
+    render().catch(ex=>notify(ex.message,true));
+  };
+  APP.onExternalWrite=()=>refreshFromOtherTab().catch(ex=>notify('Refresh หลังสลับแท็บไม่สำเร็จ: '+ex.message,true));
+  document.addEventListener('visibilitychange',()=>{
+    // Android file pickers can background the page; never replace the Import file input on return.
+    if(!document.hidden && state.page && !state.fatal && !state.editing && !state.creating && state.page!=='settings' && state.page!=='metadata' && state.page!=='backup'){
+      refreshFromOtherTab().catch(ex=>notify(ex.message,true));
+    }
+  });
+  async function start(){
+    try{await db.init();await showRoute();}
+    catch(ex){state.fatal=ex.message;await render();}
+  }
+  features=APP.makeGateBUI({h,btn,text,container,back,notify,modal,copy,go,render,state,card});
+  APP.ui={start,copy,state,showRoute,features};
+  start();
+})();
+
+</script>
+</body>
+</html>
