@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="color-scheme" content="dark">
   <meta name="theme-color" content="#10121b">
-  <title>Prompt Manager — Gate C</title>
+  <title>Prompt Manager</title>
   <style>
 :root{color-scheme:dark;--bg:#0c0e15;--surface:#141924;--surface2:#1d2330;--line:#303744;--txt:#edf0f8;--muted:#9ea9bf;--aqua:#91ddca;--aquaDark:#183f3a;--danger:#ffa5ac;--radius:17px;font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif}*{box-sizing:border-box}html{background:var(--bg);scroll-behavior:auto}body{margin:0;color:var(--txt);background:radial-gradient(ellipse 100% 420px at 50% -110px,#23313a 0%,#0c0e15 90%) fixed;min-height:100dvh}button,input,textarea{font:inherit}button{cursor:pointer;touch-action:manipulation}button:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid var(--aqua);outline-offset:2px}button{border-radius:11px;border:1px solid var(--line);background:#222a38;color:var(--txt);min-height:44px;padding:10px 13px;font-weight:600}button:hover{border-color:#6f8595}button:disabled{opacity:.5;cursor:not-allowed}.primary{background:var(--aqua);border-color:var(--aqua);color:#10201c}.danger{color:var(--danger);border-color:#70424e;background:#30212a}.ghost{background:transparent;border-color:transparent;color:var(--muted)}.chip{min-height:32px;font-size:12px;padding:6px 10px;border-radius:20px}.iconbtn{width:44px;min-width:44px;padding:0}.wrap{max-width:840px;margin:auto;padding:0 16px 100px}.header{position:sticky;top:0;z-index:8;background:#10141df2;backdrop-filter:blur(12px);border-bottom:1px solid #2b3441;padding-top:env(safe-area-inset-top)}.header-in{max-width:840px;margin:auto;padding:11px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px}.wordmark{font-weight:800;letter-spacing:-.025em;font-size:17px}.subline{display:flex;gap:7px;align-items:center;flex-wrap:wrap;color:var(--muted);font-size:11px;margin-top:4px}.env{color:var(--aqua);border:1px solid #38635c;border-radius:6px;padding:2px 6px;font-weight:800}.env.prod{color:#ffd1a7;border-color:#805639}.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:17px}.hero{padding:24px 0 14px}h1{font-size:24px;line-height:1.2;letter-spacing:-.04em;margin:0}h2{font-size:18px;line-height:1.3;letter-spacing:-.02em;margin:0}h3{font-size:14px;margin:0 0 10px}p{margin:8px 0;line-height:1.55}.muted,.hint{color:var(--muted)}.hint{font-size:12px}.section-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:22px 0 12px}.btnrow{display:flex;flex-wrap:wrap;gap:8px}.space{display:flex;justify-content:space-between;align-items:center;gap:10px}.stack{display:grid;gap:12px}.record{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:16px;display:grid;gap:12px}.record-title{font-weight:740;font-size:16px;overflow-wrap:anywhere;line-height:1.35}.pill{display:inline-block;padding:3px 9px;border:1px solid var(--line);border-radius:99px;color:var(--muted);font-size:11px}.preview{font-size:13px;color:#c2d0db;white-space:pre-wrap;overflow-wrap:anywhere;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden;line-height:1.55}.mini{font-size:12px;color:var(--muted)}.empty{text-align:center;padding:35px 20px;border:1px dashed var(--line);border-radius:var(--radius);color:var(--muted)}.empty strong{display:block;margin-bottom:6px;color:var(--txt)}.overline{text-transform:uppercase;letter-spacing:.08em;font-size:10px;color:var(--aqua);font-weight:800}.block{background:#101720;border:1px solid #2b3e48;border-radius:14px;padding:15px;margin-top:12px;min-width:0}.block .space{align-items:flex-start}.block-title{font-size:13px;color:var(--aqua);font-weight:700}.fulltext{white-space:pre-wrap;overflow-wrap:anywhere;word-break:normal;line-height:1.65;margin:13px 0 2px;font-size:14px;max-height:none;user-select:text}.blank{color:var(--muted);font-style:italic}.field{display:grid;gap:7px;margin-top:13px}.field label{font-size:13px;font-weight:700}.input,.editorbox{width:100%;background:#0d111a;border:1px solid #3a4553;border-radius:11px;color:var(--txt);padding:13px;min-height:46px}.editorbox{min-height:250px;resize:vertical;line-height:1.55;font-family:inherit;font-size:15px}.input::placeholder,.editorbox::placeholder{color:#73819b}.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:0 12px}.split{display:grid;gap:12px}.editor-actions{position:sticky;bottom:0;z-index:5;background:linear-gradient(#0c0e1500,#0c0e15 18%);padding:24px 0 max(12px,env(safe-area-inset-bottom));display:flex;gap:9px}.editor-actions button{flex:1}.toast{position:fixed;z-index:30;left:50%;bottom:calc(16px + env(safe-area-inset-bottom));transform:translateX(-50%);width:min(94vw,600px);padding:12px 16px;border-radius:12px;background:#273e3b;border:1px solid #5c9386;color:#e8fff7;box-shadow:0 14px 36px #0008;font-size:14px;pointer-events:none}.toast.error{background:#3b2530;color:#ffe6e6;border-color:#b36677}.modal-mask{position:fixed;inset:0;z-index:20;display:flex;align-items:center;justify-content:center;background:#000a;padding:16px}.modal{width:min(100%,490px);max-height:90dvh;overflow:auto;background:#1b2330;border:1px solid #526070;border-radius:17px;padding:20px;box-shadow:0 30px 60px #000a}.modal h2{margin:0 0 10px}.modal p{color:#c3cddd;white-space:pre-wrap}.modal-actions{display:flex;justify-content:flex-end;flex-wrap:wrap;gap:9px;margin-top:20px}.modal .editorbox{min-height:130px}.back{min-width:80px}.divider{height:1px;background:var(--line);margin:17px 0}.headrow{margin:20px 0 8px;display:flex;gap:10px;align-items:center}.headrow h1{font-size:21px}.smallcaps{font-size:12px;color:var(--muted)}.storage-error{border:1px solid #894d5c;background:#2d2027;border-radius:14px;padding:16px;margin:25px auto;max-width:600px}.bottom-tabs{position:fixed;bottom:0;left:0;right:0;z-index:7;padding-bottom:env(safe-area-inset-bottom);background:#10141df2;border-top:1px solid var(--line);display:flex;justify-content:center}.bottom-tabs .tab{flex:1;max-width:250px;border:0;border-radius:0;background:transparent;color:var(--muted);height:55px}.bottom-tabs .tab.active{color:var(--aqua);box-shadow:inset 0 3px 0 var(--aqua)}.boot{padding:40px;text-align:center;color:var(--muted)}@media(min-width:670px){.split{grid-template-columns:1fr 1fr}.block{margin-top:0}.hero{padding-top:33px}.wrap{padding-inline:24px}.header-in{padding-inline:24px}}@media(max-width:380px){.formgrid{grid-template-columns:1fr}.wrap{padding-inline:12px}.header-in{padding-inline:12px}.btnrow button{font-size:12px}}
 /* Gate B mobile spacing / safe-area pass (Gate A visual feedback). */
@@ -101,12 +101,47 @@
 .queue-position-select:disabled{opacity:.55}
 .queue-position-select:focus-visible{outline:2px solid var(--aqua);outline-offset:2px}
 
+
+/* Gate B composer + mobile alignment */
+.search-panel .field{margin-top:12px}
+.search-panel .field:first-child{margin-top:0}
+.search-panel .field label{display:block;margin-bottom:5px;line-height:1.5}
+.component-record{margin:14px 0 18px}
+.queue-card{margin:18px 0}
+.bottom-tabs{gap:0;overflow-x:auto;justify-content:flex-start}
+.bottom-tabs .tab{min-width:0;flex:1 0 auto;padding:8px 5px;font-size:clamp(11px,2.8vw,14px)}
+.composer-selectors{display:grid;gap:12px;margin:20px 0}
+.composer-field{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px 10px;border:1px solid var(--line);padding:14px;border-radius:14px;background:var(--surface)}
+.composer-field label{grid-column:1/-1;font-weight:700;font-size:14px}
+.composer-order{display:flex;gap:6px}
+.composer-order button{min-width:42px}
+.composer-output{min-height:220px}
+.composer-actions{margin:18px 0}
+@media(max-width:390px){.bottom-tabs .tab{font-size:11px;padding:6px 2px}.composer-field{padding:12px}}
+/* Stable mobile rhythm: controls should not touch preceding inputs or adjacent cards. */
+.backup-export-actions{margin:22px 0 24px}
+.component-record{margin:18px 0 22px}
+.component-record + .component-record{margin-top:22px}
+.component-record .pill{width:fit-content;max-width:100%}
+.component-record .btnrow{margin-top:4px}
+.component-record .btnrow button{margin-right:2px}
+.component-record .preview{line-height:1.7}
+.field + .btnrow, .field + button{margin-top:18px}
+.component-form + .btnrow{margin-top:18px}
+.composer-actions{margin-top:22px;margin-bottom:20px}
+.composer-selectors + .field{margin-top:20px}
+.settings-group.pad{margin-top:26px}
+.settings-group.pad .field{margin-bottom:18px}
+/* Increase breathing room between filter and add component. */
+.component-add-actions{margin-top:22px;margin-bottom:24px}
+/* Respect safe-area and provide enough space after content. */
+.wrap{padding-bottom:calc(115px + env(safe-area-inset-bottom))}
 </style>
 </head>
 <body>
   <div id="app"><div class="boot">กำลังเปิด Prompt Manager…</div></div>
   <div id="dialog-layer" aria-live="polite"></div>
-  <script>window.PMB_CONFIG=Object.freeze({"env": "PROD", "version": "1.0.0", "buildId": "b0009", "schemaVersion": 2});</script>
+  <script>window.PMB_CONFIG=Object.freeze({"env": "PROD", "version": "1.1.0", "buildId": "stable-b0013", "schemaVersion": 3});</script>
 <script>
 'use strict';
 (() => {
@@ -179,7 +214,7 @@
 (() => {
   const APP=window.PMB;
   const {error,newId,now,validatePrompt,validateSnippet,validateDraft}=APP.core;
-  const DB_VERSION=2, SCHEMA_VERSION=2;
+  const DB_VERSION=3, SCHEMA_VERSION=3;
   let handle=null;
   let writesBlocked=false;
   const channel=typeof BroadcastChannel==='function'?new BroadcastChannel('prompt-manager-'+APP.config.env):null;
@@ -193,7 +228,7 @@
       const r=indexedDB.open(APP.dbName,DB_VERSION);
       r.onupgradeneeded=()=>{
         const d=r.result;
-        for(const name of ['prompts','snippets','drafts','presets','queueItems','meta']) if(!d.objectStoreNames.contains(name))d.createObjectStore(name,{keyPath:'id'});
+        for(const name of ['prompts','snippets','drafts','presets','queueItems','meta','components']) if(!d.objectStoreNames.contains(name))d.createObjectStore(name,{keyPath:'id'});
       };
       r.onblocked=()=>reject(error('BLOCKED','Close other tabs holding an older database version'));
       r.onerror=()=>reject(r.error||error('STORAGE','Cannot open database'));
@@ -204,7 +239,7 @@
           await transaction(['meta'],'readwrite', async tx=>{
             const s=tx.objectStore('meta');const old=await request(s.get('schema'));
             if(old && (old.schemaVersion>SCHEMA_VERSION || old.schemaVersion<1 || old.environment!==APP.config.env)) throw error('BLOCKED','Database schema/environment incompatible');
-            if(old && old.schemaVersion<SCHEMA_VERSION) await request(s.put({...old,schemaVersion:SCHEMA_VERSION,migratedAt:now(),migration:'v1_to_v2_queue_store'}));
+            if(old && old.schemaVersion<SCHEMA_VERSION) await request(s.put({...old,schemaVersion:SCHEMA_VERSION,migratedAt:now(),migration:'v2_to_v3_component_library'}));
             if(!old)await request(s.add({id:'schema',schemaVersion:SCHEMA_VERSION,environment:APP.config.env,createdAt:now()}));
           });
           resolve();
@@ -224,7 +259,7 @@
       const fail=e=>{if(!settled){settled=true;reject(e);}};
       tx.oncomplete=()=>{if(!settled){
         settled=true;
-        if(mode==='readwrite' && names.some(name=>['prompts','snippets','presets','queueItems'].includes(name))){
+        if(mode==='readwrite' && names.some(name=>['prompts','snippets','presets','queueItems','components'].includes(name))){
           try{channel?.postMessage({event:'committed',db:APP.dbName,buildId:APP.config.buildId});}catch{}
         }
         resolve(result);
@@ -355,7 +390,7 @@
 (() => {
   const APP=window.PMB, db=APP.db, C=APP.core;
   const {transaction:tx,request:req,list,createData}=db._internal;
-  const stores=['prompts','snippets','presets','queueItems','drafts'];
+  const stores=['prompts','snippets','presets','queueItems','drafts','components'];
   const clone=v=>structuredClone(v);
   const fail=(message)=>{throw C.error('VALIDATION',message);};
   const string=(v,max=180)=>typeof v==='string'&&v.length<=max;
@@ -436,9 +471,33 @@
   async function refreshSnapshot(id,expectedRevision){
     return tx(['queueItems','prompts'],'readwrite',async x=>{const q=x.objectStore('queueItems'),r=await req(q.get(id));if(!r||r.revision!==expectedRevision)throw C.error('CONFLICT','Queue เปลี่ยนแปลงแล้ว');const p=await req(x.objectStore('prompts').get(r.originalPromptId));if(!p||p.deletedAt)throw C.error('NOT_FOUND','ต้นฉบับถูกลบแล้ว Snapshot เดิมยังใช้ได้');const t={...r,sourceRevision:p.revision,snapshotAt:C.now(),snapshot:{title:p.title,positive:p.positive,negative:p.negative,model:p.model,platform:p.platform,tags:clone(p.tags),settings:clone(p.settings),loras:clone(p.loras)},revision:r.revision+1,updatedAt:C.now()};validateQueue(t);await req(q.put(t));return t;});
   }
+  const componentCategories=['Character','Outfit','Pose/Action','Environment','Camera','Style/Lighting'];
+  function validateComponent(r){
+    if(!r||!C.idOK(r.id))fail('Component ID ไม่ถูกต้อง');
+    if(!string(r.title,180)||!r.title.trim())fail('ชื่อ Component ไม่ถูกต้อง');
+    if(!componentCategories.includes(r.category))fail('หมวด Component ไม่ถูกต้อง');
+    if(!string(r.positive,200000)||!r.positive.trim())fail('Positive Component ต้องไม่ว่าง');
+    if(!Number.isSafeInteger(r.revision)||r.revision<1||!string(r.createdAt,80)||!string(r.updatedAt,80))fail('Component revision/date ไม่ถูกต้อง');
+    return r;
+  }
+  const allComponents=async()=> (await list('components')).sort((a,b)=>a.category.localeCompare(b.category)||a.title.localeCompare(b.title));
+  async function saveComponent(input,id=null,revision=null){
+    const title=String(input.title??'').trim(),category=input.category,positive=String(input.positive??'').trim();
+    const t=C.now();
+    return tx(['components'],'readwrite',async x=>{
+      const store=x.objectStore('components');
+      const old=id?await req(store.get(id)):null;
+      if(id&&(!old||old.revision!==revision))throw C.error('CONFLICT','รายการถูกเปลี่ยนแล้ว กรุณาโหลดหน้าใหม่');
+      const row=validateComponent(old?{...old,title,category,positive,updatedAt:t,revision:old.revision+1}:{id:C.newId('component'),title,category,positive,createdAt:t,updatedAt:t,revision:1});
+      await req(store.put(row));return row;
+    });
+  }
+  async function deleteComponent(id,revision){
+    return tx(['components'],'readwrite',async x=>{const store=x.objectStore('components'),old=await req(store.get(id));if(!old||old.revision!==revision)throw C.error('CONFLICT','รายการถูกเปลี่ยนแล้ว');await req(store.delete(id));});
+  }
   async function exportBackup(){
     const result=await tx(stores,'readonly',async x=>{const out={};for(const s of stores)out[s]=await req(x.objectStore(s).getAll());return out;});
-    return {format:'prompt-manager.backup',schemaVersion:2,sourceAppVersion:APP.config.version,sourceBuild:APP.config.buildId,sourceEnvironment:APP.config.env,exportedAt:C.now(),stores:result};
+    return {format:'prompt-manager.backup',schemaVersion:3,sourceAppVersion:APP.config.version,sourceBuild:APP.config.buildId,sourceEnvironment:APP.config.env,exportedAt:C.now(),stores:result};
   }
   function validateWhole(records){
     if(!records||typeof records!=='object'||Array.isArray(records))fail('ไม่มีข้อมูลรายการ');
@@ -452,6 +511,7 @@
       if(name==='presets')validatePreset(r);
       if(name==='queueItems')validateQueue(r);
       if(name==='drafts')C.validateDraft(r);
+      if(name==='components')validateComponent(r);
       if(!['drafts'].includes(name)&&(!Number.isSafeInteger(r.revision)||r.revision<1||!string(r.createdAt,80)||!string(r.updatedAt,80)))fail(`Record revision/date ไม่ถูกต้องใน ${name}`);
       }
     }
@@ -464,8 +524,9 @@
     if(typeof raw!=='string'||new TextEncoder().encode(raw).length>8*1024*1024)fail('ไฟล์ต้องไม่เกิน 8 MB');
     let data;try{data=JSON.parse(raw);}catch{fail('JSON ไม่ถูกต้อง');}
     if(data?.format==='prompt-manager.backup'){
-      if(data.schemaVersion!==2)fail('Backup schema ไม่รองรับ ต้องเป็น version 2');
-      return {kind:'backup',records:validateWhole(data.stores),meta:{exportedAt:data.exportedAt,sourceEnvironment:data.sourceEnvironment}};
+      if(data.schemaVersion!==2&&data.schemaVersion!==3)fail('Backup schema ไม่รองรับ ต้องเป็น version 2 หรือ 3');
+      const records=data.schemaVersion===2?{...data.stores,components:[]}:data.stores;
+      return {kind:'backup',records:validateWhole(records),meta:{exportedAt:data.exportedAt,sourceEnvironment:data.sourceEnvironment}};
     }
     if(data?.format==='prompt-manager.seed'){
       if(data.schemaVersion!==1||!Array.isArray(data.entries)||!Array.isArray(data.snippets)||!Array.isArray(data.presets)||data.entries.length>1000||data.snippets.length>3000||data.presets.length>1000)fail('Seed format ไม่ถูกต้อง');
@@ -500,7 +561,7 @@
       return {mode,imported};
     });
   }
-  APP.gateB={validateConfig,allPresets,addPreset,removePreset,allQueue,enqueue,editQueue,moveQueueTo,deleteQueue,clearQueue,refreshSnapshot,exportBackup,parseImport,parsePaste,summary,applyImport};
+  APP.gateB={componentCategories,allComponents,saveComponent,deleteComponent,validateComponent,validateConfig,allPresets,addPreset,removePreset,allQueue,enqueue,editQueue,moveQueueTo,deleteQueue,clearQueue,refreshSnapshot,exportBackup,parseImport,parsePaste,summary,applyImport};
 })();
 
 </script>
@@ -726,9 +787,8 @@
     }
     function backupPage(){const main=container(h('div',{class:'headrow'},back(),n('span','BACKUP / IMPORT','overline')),n('h1','Backup & Restore'),
       n('p',`Environment: ${APP.config.env} · v${APP.config.version} · ${APP.config.buildId} · DB schema ${db.SCHEMA_VERSION}`,'hint'),
-      n('p','ข้อมูลอยู่ใน Browser นี้เท่านั้น ควร Export JSON เก็บไว้นอกเบราว์เซอร์ก่อนใช้ Replace','hint'),btn('Export Full JSON','backup-export','primary'));
+      n('p','ข้อมูลอยู่ใน Browser นี้เท่านั้น ควร Export JSON เก็บไว้นอกเบราว์เซอร์ก่อนใช้ Replace','hint'),field('ชื่อไฟล์ Backup (แก้ได้)',(()=>{const f=input(state.backupFileName||`prompt-manager-${APP.config.env.toLowerCase()}-${new Date().toISOString().replace(/[:.]/g,'-')}`,'backupName');f.maxLength=120;return f;})()),h('div',{class:'btnrow backup-export-actions'},btn('Export Full JSON','backup-export','primary')));
       const file=h('input',{class:'input',type:'file'});file.accept='.json,application/json';file.dataset.import='file';
-      const area=h('textarea',{class:'editorbox',rows:7});area.dataset.import='paste';area.placeholder='วาง prompt-manager.seed / backup JSON หรือ Paste Grammar ตามตัวอย่าง';area.value=state.backupInput||'';
       const section=h('div',{class:'settings-group pad'},n('h2','Import / Restore'),
         n('p','เลือกไฟล์ JSON แล้วดู Preview ด้านล่างนี้ก่อนเลือกวิธีนำเข้า — ยังไม่แก้ข้อมูลทันที','hint'));
       section.append(field('เลือก JSON ไม่เกิน 8 MB',file));
@@ -747,33 +807,23 @@
           h('div',{class:'btnrow'},btn('เพิ่มต่อท้าย (Merge)','import-merge','primary'),btn('แทนที่ทั้งหมด (Replace)','import-replace','danger'),btn('ยกเลิก','import-cancel')));
         section.append(summary);
       }
-      section.append(field('หรือวาง JSON / Paste ที่มีตัวคั่น',area),h('div',{class:'btnrow'},btn('Preview JSON','import-preview'),btn('Preview Paste','import-paste')));
       main.append(section);
-      const grammar='=== PROMPT ===\nTitle: Prompt example\nPositive:\na gentle smile\nNegative:\nlow quality\n=== END ===';
-      main.append(h('details',{class:'settings-group'},h('summary',{text:'Paste Grammar ตัวอย่าง (ต้องตรงรูปแบบ)'}),h('pre',{class:'fulltext',text:grammar})));
       return main;
     }
     function focusImportPreview(){
       // After render, the preview is placed next to the file picker; do not hide actions below the paste textarea.
       document.querySelector('[data-import-preview]')?.scrollIntoView({block:'start',behavior:'auto'});
     }
-    function downloadBackup(obj){const blob=new Blob([JSON.stringify(obj,null,2)],{type:'application/json;charset=utf-8'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=`prompt-manager-${APP.config.env.toLowerCase()}-v${APP.config.version}-${new Date().toISOString().slice(0,10)}.json`;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),60000);}
+    function downloadBackup(obj){const blob=new Blob([JSON.stringify(obj,null,2)],{type:'application/json;charset=utf-8'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=`${(state.backupFileName||`prompt-manager-${APP.config.env.toLowerCase()}-${new Date().toISOString().replace(/[:.]/g,'-')}`).replace(/[^a-zA-Z0-9_\-.]/g,'_').replace(/\.json$/i,'').slice(0,120)||'prompt-manager-backup'}.json`;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),60000);}
     async function preview(raw,mode,source='text'){
-      if(source==='text'){state.backupInput=raw;importFileName=null;}
-      else{state.backupInput='';importFileName=source;}
-      plan=mode==='paste'?B.parsePaste(raw):B.parseImport(raw);
+      state.backupInput='';importFileName=source;
+      plan=B.parseImport(raw);
       importMessage={text:source==='text'?'ตรวจข้อมูลสำเร็จ — ยังไม่ได้ Import':'เลือกไฟล์แล้ว ตรวจข้อมูลสำเร็จ — ยังไม่ได้ Import',error:false};
       await render();
       focusImportPreview();
     }
     async function importAction(action){
       if(action==='backup-export'){downloadBackup(await B.exportBackup());notify('เตรียมไฟล์ Backup JSON แล้ว ตรวจว่า Browser ดาวน์โหลดสำเร็จ');return;}
-      if(action==='import-preview'||action==='import-paste'){
-        const raw=document.querySelector('[data-import="paste"]')?.value||'';
-        try{await preview(raw,action==='import-paste'?'paste':'json');}
-        catch(e){plan=null;importMessage={text:'Preview ไม่ผ่าน: '+e.message,error:true};state.backupInput=raw;await render();}
-        return;
-      }
       if(action==='import-cancel'){plan=null;importMessage=null;importFileName=null;state.backupInput='';await render();return;}
       if(action==='import-merge'||action==='import-replace'){
         if(!plan)throw Error('ไม่มี Import Preview');const mode=action==='import-merge'?'merge':'replace';
@@ -918,6 +968,8 @@
     if(parts[0]==='new-prompt')return {page:'createPrompt'};
     if(parts[0]==='new-snippet')return {page:'createSnippet',parentId:parts[1]||null};
     if(parts[0]==='trash')return {page:'trash'};
+    if(parts[0]==='components')return {page:'components'};
+    if(parts[0]==='composer')return {page:'composer'};
     if(parts[0]==='queue')return {page:'queue'};
     if(parts[0]==='backup')return {page:'backup'};
     if(parts[0]==='settings' && parts[1])return {page:'settings',id:parts[1]};
@@ -970,6 +1022,10 @@
     await render();
   }
   async function go(url){
+    if(state.page==='components' && componentEditing && url!=='#components'){
+      if(!await modal({title:'ออกจากตัวแก้ไข Component?',body:'การแก้ไขที่ยังไม่ Save จะหายไป',confirm:'ทิ้งการแก้ไข',danger:true}))return;
+      componentEditing=null;
+    }
     if(state.page==='settings'&&features&&url!==`#settings/${state.selectedId}`){if(!await features.closeSettings())return;}
     if(state.page==='metadata'&&state.metaDirty&&url!==`#metadata/${state.selectedId}`){
       if(!await modal({title:'ทิ้ง Metadata ที่แก้ไว้?',body:'ยังไม่ได้ Save',confirm:'ทิ้งข้อมูล',danger:true}))return;
@@ -1094,15 +1150,125 @@
     if(!data.length)main.append(h('div',{class:'empty'},text('strong','ถังขยะว่าง')));
     for(const {type,r} of data){
       const linked=type==='prompts'?await db.linkedSnippets(r.id):[];
-      main.append(h('div',{class:'record'},text('div',r.title,'record-title'),text('p',`ลบเมื่อ ${new Date(r.deletedAt).toLocaleString('th-TH')}`,'hint'),
+      main.append(h('div',{class:'record component-record'},text('div',r.title,'record-title'),text('p',`ลบเมื่อ ${new Date(r.deletedAt).toLocaleString('th-TH')}`,'hint'),
         ...(linked.length?[text('p',`มี Snippet ผูกอยู่ ${linked.length} รายการ — ลบถาวรจะลบไปพร้อม Prompt`,'linked-warning')]:[]),
         h('div',{class:'btnrow'},btn('Restore','restore','primary',{type,id:r.id}),btn('ลบถาวร','purge','danger',{type,id:r.id}))));
     }
     return main;
   }
+  let componentEditing=null;
+  let componentFilter="All";
+  // Composer is deliberately ephemeral: a snapshot is created only on Save.
+  const composerSelection=Object.fromEntries(APP.gateB.componentCategories.map(c=>[c,'']));
+  let composerOrder=[...APP.gateB.componentCategories];
+  let composerPreview='',composerTitle='',composerDirty=true;
+  function markComposerDirty(){
+    composerDirty=true;
+    const el=document.querySelector('[data-composer-status]');if(el)el.textContent='ตัวเลือกเปลี่ยนแล้ว — กด Assemble อีกครั้งก่อน Copy หรือ Save';
+    for(const action of ['composer-copy','composer-save']){const b=document.querySelector(`[data-action="${action}"]`);if(b)b.disabled=true;}
+  }
+  const assembleComposer=rows=>composerOrder.map(c=>rows.find(r=>r.id===composerSelection[c] && r.category===c)?.positive.trim()||'').filter(Boolean).reduce((out,part)=>{if(!out)return part;return out.replace(/[,\s]+$/,'')+', '+part.replace(/^[,\s]+/,'');},'');
+  async function composerPage(){
+    const rows=await APP.gateB.allComponents();
+    const main=container(h('div',{class:'headrow'},text('h1','Prompt Composer')),
+      text('p','เลือกชิ้นส่วน แล้วกด Assemble เพื่อสร้าง Positive Prompt สำหรับ Krea 2 (ไม่มี Negative)','hint'));
+    const selectors=h('div',{class:'composer-selectors'});
+    for(let i=0;i<composerOrder.length;i++){
+      const cat=composerOrder[i],options=rows.filter(r=>r.category===cat);
+      if(composerSelection[cat] && !options.some(r=>r.id===composerSelection[cat]))composerSelection[cat]='';
+      const sel=h('select',{class:'input'});sel.dataset.composerCategory=cat;
+      const empty=h('option',{text:'— ไม่เลือก —'});empty.value='';sel.append(empty);
+      for(const r of options){const opt=h('option',{text:r.title});opt.value=r.id;sel.append(opt);}
+      sel.value=composerSelection[cat];
+      const up=btn('↑','composer-up','',{category:cat}),down=btn('↓','composer-down','',{category:cat});
+      up.disabled=i===0;down.disabled=i===composerOrder.length-1;
+      selectors.append(h('div',{class:'composer-field'},text('label',cat),sel,h('div',{class:'composer-order'},up,down)));
+    }
+    const title=h('input',{class:'input',value:composerTitle});title.dataset.composerTitle='true';title.placeholder='เช่น Krea 2 — Cozy Room';
+    const preview=h('textarea',{class:'editorbox composer-output',rows:9,value:composerPreview});preview.readOnly=true;preview.setAttribute('aria-label','Assembled Positive Prompt');
+    main.append(selectors,h('div',{class:'field'},text('label','ชื่อ Prompt ใหม่ (ใช้ตอน Save)'),title),
+      h('div',{class:'btnrow composer-actions'},btn('Assemble','composer-assemble','primary'),btn('Copy','composer-copy'),btn('Save as New Prompt','composer-save')),
+      h('div',{class:'field'},text('label','Preview — Positive (read-only)'),preview),
+      text('p','เมื่อเปลี่ยนชิ้นส่วน ให้กด Assemble อีกครั้งก่อน Copy หรือ Save ระบบไม่แก้ Prompt เก่าหรือ Queue ที่มีอยู่','hint'));
+    const status=text('p',composerDirty?'ตัวเลือกเปลี่ยนแล้ว — กด Assemble ก่อน Copy หรือ Save':'Preview พร้อม Copy / Save','hint');status.dataset.composerStatus='true';main.append(status);
+    if(composerDirty)main.querySelectorAll('[data-action="composer-copy"], [data-action="composer-save"]').forEach(b=>b.disabled=true);
+    return main;
+  }
+  async function composerAction(action,cat){
+    if(action==='composer-up'||action==='composer-down'){
+      const from=composerOrder.indexOf(cat),to=from+(action==='composer-up'?-1:1);
+      if(from<0||to<0||to>=composerOrder.length)return;
+      [composerOrder[from],composerOrder[to]]=[composerOrder[to],composerOrder[from]];
+      markComposerDirty();return render();
+    }
+    if(action==='composer-assemble'){
+      const rows=await APP.gateB.allComponents();composerPreview=assembleComposer(rows);composerDirty=!composerPreview;
+      await render();notify(composerPreview?'ประกอบ Prompt แล้ว':'เลือก Component อย่างน้อยหนึ่งรายการ',!composerPreview);return;
+    }
+    if(action==='composer-copy'||action==='composer-save'){
+      if(composerDirty)return notify('ตัวเลือกเปลี่ยนแล้ว — กด Assemble ใหม่',true);
+      const latest=assembleComposer(await APP.gateB.allComponents());
+      if(latest!==composerPreview)return notify('มีการเปลี่ยน Component — กรุณากด Assemble ใหม่',true);
+      if(!composerPreview.trim())return notify('กรุณา Assemble ก่อน',true);
+      if(action==='composer-copy')return copy(composerPreview);
+      if(!composerTitle.trim())return notify('กรอกชื่อ Prompt ก่อน Save',true);
+      if(!await modal({title:'Save as New Prompt?',body:`${composerTitle.trim()}\nบันทึก Positive เป็น Snapshot ใหม่ ไม่แก้ Prompt เดิม`,confirm:'Save'}))return;
+      try{
+        const created=await db.create('prompts',{title:composerTitle.trim(),positive:composerPreview,negative:'',platform:'Krea',model:'Krea 2'});
+        await go(`#prompt/${created.id}`);notify('สร้าง Prompt ใหม่แล้ว');
+      }catch(e){notify('Save ไม่สำเร็จ: '+e.message,true);}return;
+    }
+  }
+
+  async function componentPage(){
+    const rows=await APP.gateB.allComponents();
+    const main=container(h('div',{class:'headrow'},text('h1','Component Library')),
+      text('p','เก็บชิ้นส่วน Positive Prompt ใช้ร่วมกันได้ การแก้หรือลบไม่เปลี่ยน Prompt และ Queue ที่บันทึกไว้แล้ว','hint'));
+    const filter=h('select',{class:'input'});filter.dataset.componentFilter='true';
+    for(const label of ['All',...APP.gateB.componentCategories]){const opt=h('option',{text:label});opt.value=label;opt.selected=label===componentFilter;filter.append(opt);}
+    main.append(h('div',{class:'field'},text('label','Filter by category'),filter));
+    const draft=componentEditing;
+    if(draft){
+      const form=h('div',{class:'panel'},text('h2',draft.id?'แก้ไข Component':'เพิ่ม Component'));
+      const title=h('input',{class:'input',value:draft.title});title.dataset.componentField='title';
+      const select=h('select',{class:'input'});select.dataset.componentField='category';
+      for(const category of APP.gateB.componentCategories){const option=h('option',{text:category,value:category});option.value=category;if(category===draft.category)option.selected=true;select.append(option);}
+      const positive=h('textarea',{class:'editorbox',value:draft.positive,rows:7});positive.dataset.componentField='positive';
+      form.append(h('div',{class:'field'},text('label','ชื่อ'),title),h('div',{class:'field'},text('label','หมวด'),select),h('div',{class:'field'},text('label','Positive Prompt'),positive),h('div',{class:'btnrow'},btn('Save','component-save','primary'),btn('Cancel','component-cancel')));
+      main.append(form);
+    }else main.append(h('div',{class:'btnrow component-add-actions'},btn('+ เพิ่ม Component','component-new','primary')));
+    const visible=rows.filter(r=>componentFilter==='All'||r.category===componentFilter);
+    if(!visible.length)main.append(h('div',{class:'empty'},text('strong',rows.length?'ไม่มี Component ในหมวดนี้':'ยังไม่มี Component')));
+    for(const r of visible){
+      const preview=h('div',{class:'preview',text:r.positive});
+      main.append(h('div',{class:'record component-record'},text('div',r.title,'record-title'),text('div',r.category,'pill'),preview,h('div',{class:'btnrow'},btn('Edit','component-edit','',{id:r.id}),btn('Delete','component-delete','danger',{id:r.id}))));
+    }
+    return main;
+  }
+  async function componentAction(action,id){
+    if(action==='component-new'){componentEditing={title:'',category:'Character',positive:''};return render();}
+    if(action==='component-cancel'){componentEditing=null;return render();}
+    if(action==='component-edit'){
+      const r=(await APP.gateB.allComponents()).find(v=>v.id===id);
+      if(!r)return notify('ไม่พบ Component',true);
+      componentEditing={...r};return render();
+    }
+    if(action==='component-save'){
+      if(!componentEditing)return;
+      const d=componentEditing;
+      if(!d.title.trim()||!d.positive.trim())return notify('กรอกชื่อและ Positive Prompt',true);
+      if(!await modal({title:'ยืนยันการบันทึก Component',body:d.title,confirm:'Save'}))return;
+      try{await APP.gateB.saveComponent(d,d.id||null,d.revision||null);componentEditing=null;await render();notify('บันทึก Component แล้ว');}catch(ex){notify(ex.message,true);}return;
+    }
+    if(action==='component-delete'){
+      const r=(await APP.gateB.allComponents()).find(v=>v.id===id);if(!r)return notify('ไม่พบ Component',true);
+      if(!await modal({title:'ลบ Component ถาวร?',body:`ลบ “${r.title}” ออกจากคลังเท่านั้น Prompt/Queue ที่บันทึกไว้ไม่เปลี่ยน`,confirm:'Delete',danger:true}))return;
+      try{await APP.gateB.deleteComponent(id,r.revision);if(componentEditing?.id===id)componentEditing=null;await render();notify('ลบ Component แล้ว');}catch(ex){notify(ex.message,true);}return;
+    }
+  }
   function tabs(){
-    if(!['library','trash','queue','backup'].includes(state.page))return null;
-    return h('nav',{class:'bottom-tabs'},btn('Library','tab-library','tab '+(state.page==='library'?'active':'')),btn('Queue','tab-queue','tab '+(state.page==='queue'?'active':'')),btn('Trash','tab-trash','tab '+(state.page==='trash'?'active':'')));
+    if(!['library','trash','queue','backup','components','composer'].includes(state.page))return null;
+    return h('nav',{class:'bottom-tabs'},btn('Library','tab-library','tab '+(state.page==='library'?'active':'')),btn('Components','tab-components','tab '+(state.page==='components'?'active':'')),btn('Composer','tab-composer','tab '+(state.page==='composer'?'active':'')),btn('Queue','tab-queue','tab '+(state.page==='queue'?'active':'')),btn('Trash','tab-trash','tab '+(state.page==='trash'?'active':'')));
   }
   function externalNotice(){
     const notice=h('div',{class:'external-notice',text:'มีข้อมูลเปลี่ยนจากอีกแท็บ — ถ้ากำลังแก้ไข ให้ตรวจข้อมูลก่อน Save'});
@@ -1112,7 +1278,7 @@
     if(state.fatal)return;
     const focused=document.activeElement;
     const enteringFilter=state.page==='library' && focused?.matches?.('input, textarea, select') && !!focused.closest?.('.search-panel');
-    if(state.editing || state.creating || state.page==='settings' || state.page==='metadata' || state.page==='backup' || state.saving || enteringFilter){
+    if(state.editing || state.creating || state.page==='settings' || state.page==='metadata' || state.page==='backup' || (state.page==='components' && componentEditing) || state.page==='composer' || state.saving || enteringFilter){
       state.externalChanged=true;
       if(!root.querySelector('.external-notice'))root.querySelector('.header')?.after(externalNotice());
       return;
@@ -1128,6 +1294,8 @@
     let body;
     if(state.page==='library')body=library();
     else if(state.page==='trash')body=await trash();
+    else if(state.page==='components')body=await componentPage();
+    else if(state.page==='composer')body=await composerPage();
     else if(state.page==='queue')body=features.queuePage();
     else if(state.page==='backup')body=features.backupPage();
     else if(state.page==='settings')body=features.settingsForm();
@@ -1181,6 +1349,10 @@
     if(action==='home'||action==='tab-library')return go('#library');
     if(action==='back'||action==='cancel')return go(state.page==='editor'?`#${state.editing.type==='prompts'?'prompt':'snippet'}/${state.editing.id}`:'#library');
     if(action==='tab-trash')return go('#trash');
+    if(action==='tab-components')return go('#components');
+    if(action==='tab-composer')return go('#composer');
+    if(action.startsWith('composer-'))return composerAction(action,button.dataset.category);
+    if(action.startsWith('component-'))return componentAction(action,id);
     if(action==='tab-queue'||action==='goto-queue')return go('#queue');
     if(action==='goto-backup')return go('#backup');
     if(action==='goto-settings')return go(`#settings/${id}`);
@@ -1238,10 +1410,16 @@
     if(e.target.dataset.import==='file')features.fileChanged(e.target).catch(ex=>notify('อ่านไฟล์ไม่ได้: '+ex.message,true));
     else if(e.target.dataset.queuePosition)features.changeQueuePosition(e.target).catch(ex=>notify('ย้ายคิวไม่สำเร็จ: '+ex.message,true));
     else if(e.target.dataset.meta)state.metaDirty=true;
+    else if(e.target.dataset.componentFilter){componentFilter=e.target.value;render().catch(ex=>notify(ex.message,true));}
+    else if(e.target.dataset.componentField && componentEditing)componentEditing[e.target.dataset.componentField]=e.target.value;
+    else if(e.target.dataset.composerCategory){composerSelection[e.target.dataset.composerCategory]=e.target.value;markComposerDirty();}
     else features.handleInput(e.target);
   });
   root.addEventListener('input',e=>{
     if(e.target.dataset.meta)state.metaDirty=true;
+    if(e.target.dataset.componentField && componentEditing)componentEditing[e.target.dataset.componentField]=e.target.value;
+    if(e.target.dataset.composerTitle)composerTitle=e.target.value;
+    if(e.target.dataset.adv==='backupName'){state.backupFileName=e.target.value;return;}
     features.handleInput(e.target);
     if(e.target.dataset.input==='edit'&&state.editing){state.editing.value=e.target.value;makeDraftWrite(state.editing);}
     else if(e.target.dataset.create&&state.creating)state.creating.values[e.target.dataset.create]=e.target.value;
@@ -1271,3 +1449,4 @@
 </script>
 </body>
 </html>
+<!-- Stable PROD: production IndexedDB namespace, schema v3. -->
